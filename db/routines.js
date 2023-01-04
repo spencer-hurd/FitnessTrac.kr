@@ -27,7 +27,8 @@ async function getRoutineById(id) {
 
       }
     } */
-
+    
+    //Add activities obj and extras
     const { rows: activities } = await client.query(`
       SELECT activities.*, routine_activities.duration, routine_activities.count
       FROM activities
@@ -43,23 +44,24 @@ async function getRoutineById(id) {
     `, [id])
 
     routine.activities = activities
+    //Could we do this in SQL? Probably, but this works too!
     routine.activities.map(
       activity => activity.routineId = id
     )
-
-    /* routine.activities.map( //try with for loop / just wait and refactor with sean's func demo
-      //try promise all
-      async activity => {
+    
+    //My beast is arisen, and we got those ids
+    //Because the callback has to be async for the query to work, the assignment to the obj is also treated as a promise. The Promise.all() method fulfills them and the assignment works.
+    await Promise.all(routine.activities.map(
+        async activity => {
         const { rows: [routineActivityId] } = await client.query(`
           SELECT routine_activities.id
           FROM routine_activities
           WHERE routine_activities."routineId" = $1
           AND routine_activities."activityId" = $2; 
         `, [activity.routineId, activity.id])
-        console.log(routineActivityId.id)
         activity.routineActivityId = routineActivityId.id
       }
-    ) */
+    ))
 
     routine.creatorName = creator.creatorName
     //console.log(routine)
@@ -70,7 +72,7 @@ async function getRoutineById(id) {
 }
 
 async function getRoutinesWithoutActivities() {
-  
+
 }
 
 async function getAllRoutines() {
