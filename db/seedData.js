@@ -1,4 +1,6 @@
-const { createUser } = require('./users');
+const { 
+  createUser
+ } = require('./users');
 const client = require("./client")
 
 async function dropTables() {
@@ -83,6 +85,7 @@ async function createInitialUsers() {
     throw error
   }
 }
+
 async function createInitialActivities() {
   try {
     console.log("Starting to create activities...")
