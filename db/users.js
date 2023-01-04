@@ -12,13 +12,14 @@ async function createUser({ username, password }) {
       rows: [user],
     } = await client.query(
       `
-    INSERT INTO users (username, password)
-    VALUES ($1, $2)
-    ON CONFLICT (username) DO NOTHING
-    RETURNING id, username;
+      INSERT INTO users (username, password)
+      VALUES ($1, $2)
+      ON CONFLICT (username) DO NOTHING
+      RETURNING id, username;
     `,
       [username, hashedPassword]
     );
+
     return user;
   } catch (error) {
     console.error(`Error creating user: ${username}`, error);
@@ -33,9 +34,12 @@ async function getUser({ username, password }) {
       delete user.password;
       return user;
     } else {
-      console.log("Passwords do not match :(");
+      console.log("Passwords do not match");
+      throw new Error();
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(`Problem fetching user: ${username}`, error);
+  }
 }
 
 async function getUserById(userId) {
@@ -44,32 +48,32 @@ async function getUserById(userId) {
       rows: [user],
     } = await client.query(
       `
-    SELECT id, username FROM users
-    WHERE id=$1
+      SELECT id, username FROM users
+      WHERE id = $1;
     `,
       [userId]
     );
+
     return user;
   } catch (error) {
-    throw error;
+    console.error(`Could not fetch user ${userId} by their id`, error);
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername(userName) {
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-      SELECT *
-      FROM users
-      WHERE username=$1
-    `,
-      [username]
+          SELECT id, username, password FROM users
+          WHERE username = $1;
+        `,
+      [userName]
     );
     return user;
   } catch (error) {
-    throw error;
+    console.error(`Error fetching user by name: ${userName}`, error);
   }
 }
 

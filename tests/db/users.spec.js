@@ -24,6 +24,7 @@ describe("DB Users", () => {
       };
       const user = await createUser(fakeUserData);
       expect(user.username).toBe(fakeUserData.username);
+      //Doesn't check for id prop
     });
 
     it("Does NOT return the password", async () => {
