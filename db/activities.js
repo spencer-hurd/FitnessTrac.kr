@@ -81,15 +81,13 @@ async function updateActivity({ id, ...fields }) {
     if (setString.length > 0) {
       const {
         rows: [activity],
-      } = await client.query(
-        `
+      } = await client.query(`
         UPDATE activities 
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
-        `,
-        Object.values(fields)
-      );
+        `, Object.values(fields));
+        
       return activity;
     } else {
       return;

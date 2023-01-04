@@ -22,7 +22,6 @@ async function getRoutineById(id) {
       SELECT * FROM routines
       WHERE id = $1;
     `, [id])
-    
     /* if (!routine) {
       throw {
 
@@ -70,7 +69,9 @@ async function getRoutineById(id) {
   }
 }
 
-async function getRoutinesWithoutActivities() {}
+async function getRoutinesWithoutActivities() {
+  
+}
 
 async function getAllRoutines() {
   try {
@@ -129,25 +130,56 @@ async function getPublicRoutinesByActivity({ id }) {
       FROM routine_activities
       WHERE "activityId" = $1;
     `, [id])
-    console.log("Routine Id Obj is: ", routineIdObjs)
-    console.log("Id type is: ", routineIdObjs[0].routineId)
-    const routineIds = routineIdObjs.map(obj => {
-      obj.routineId
-    })
-    console.log("Routine Ids are: ", routineIds)
-    /* const routinesById = await Promise.all(routineIds.map(routineId => {
-      getRoutineById(routineId)
+
+    const routinesById = await Promise.all(routineIdObjs.map(rObj => {
+      return getRoutineById(rObj.routineId)
     }))
-    console.log('Routines by id: ', routinesById)
-    return routinesById.filter(routine => routine.isPublic) */
+
+    return routinesById.filter(routine => routine.isPublic)
   } catch (error) {
     throw error
   }
 }
 
-async function updateRoutine({ id, ...fields }) {}
+async function updateRoutine({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  
+  try {
+    if (setString.length > 0) {
+      const {
+        rows: [routine],
+      } = await client.query(`
+        UPDATE routines 
+        SET ${setString}
+        WHERE id=${id}
+        RETURNING *;
+        `, Object.values(fields));
+        
+      return routine;
+    } else {
+      return;
+    }
+  } catch (error) {
+    throw error
+  }
+}
 
-async function destroyRoutine(id) {}
+async function destroyRoutine(id) {
+  try {
+    await client.query(`
+      DELETE FROM routine_activities
+      WHERE routine_activities."routineId" = $1;
+    `, [id])
+    await client.query(`
+      DELETE FROM routines
+      WHERE routines.id = $1;
+    `, [id])
+  } catch (error) {
+    throw error
+  }
+}
 
 module.exports = {
   getRoutineById,

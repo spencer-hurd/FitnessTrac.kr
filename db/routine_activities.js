@@ -21,15 +21,33 @@ async function addActivityToRoutine({
   }
 }
 
-async function getRoutineActivityById(id) {}
+async function getRoutineActivityById(id) {
+  try {
+    const { rows: [RA] } = await client.query(`
+      SELECT * FROM routine_activities
+      WHERE routine_activities.id = $1; 
+    `, [id])
+    return RA    
+  } catch (error) {
+    throw error
+  }
+}
 
-async function getRoutineActivitiesByRoutine({ id }) {}
+async function getRoutineActivitiesByRoutine({ id }) {
 
-async function updateRoutineActivity({ id, ...fields }) {}
+}
 
-async function destroyRoutineActivity(id) {}
+async function updateRoutineActivity({ id, ...fields }) {
 
-async function canEditRoutineActivity(routineActivityId, userId) {}
+}
+
+async function destroyRoutineActivity(id) {
+
+}
+
+async function canEditRoutineActivity(routineActivityId, userId) {
+  
+}
 
 module.exports = {
   getRoutineActivityById,
