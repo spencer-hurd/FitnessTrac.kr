@@ -73,18 +73,17 @@ async function getRoutineById(id) {
 async function getRoutinesWithoutActivities() {}
 
 async function getAllRoutines() {
-
   try {
     const { rows: routineIds } = await client.query(`
-      SELECT routines.id
-      FROM routines;
-    `)
+    SELECT routines.id
+    FROM routines;
+    `);
 
-    return await Promise.all(routineIds.map(
-      routine => getRoutineById(routine.id)
-    ))
+    return await Promise.all(
+      routineIds.map((routine) => getRoutineById(routine.id))
+    );
   } catch (error) {
-    console.error(error)
+    console.error("Can't get all routines: ", error);
   }
 }
 
