@@ -1,5 +1,5 @@
-const { query } = require("express");
 const client = require("./client");
+const { getUserByUsername } = require("./users");
 
 async function createRoutine({ creatorId, isPublic, name, goal }) {
   try {
@@ -47,7 +47,9 @@ async function getRoutineById(id) {
     routine.activities.map(
       activity => activity.routineId = id
     )
-    routine.activities.map( //try with for loop / just wait and refactor with sean's func demo
+
+    /* routine.activities.map( //try with for loop / just wait and refactor with sean's func demo
+      //try promise all
       async activity => {
         const { rows: [routineActivityId] } = await client.query(`
           SELECT routine_activities.id
@@ -58,12 +60,10 @@ async function getRoutineById(id) {
         console.log(routineActivityId.id)
         activity.routineActivityId = routineActivityId.id
       }
-    )
-    /* routine.activities.map(
-      activity => activity.routineActivityId = 22
     ) */
+
     routine.creatorName = creator.creatorName
-    console.log(routine)
+    //console.log(routine)
     return routine
   } catch (error) {
     throw error
@@ -87,13 +87,63 @@ async function getAllRoutines() {
   }
 }
 
-async function getAllPublicRoutines() {}
+async function getAllPublicRoutines() {
+  try {
+    const routines = await getAllRoutines()
+    return routines.filter(routine => {
+      return routine.isPublic
+    })    
+  } catch (error) {
+    throw error
+  }
+}
 
-async function getAllRoutinesByUser({ username }) {}
+async function getAllRoutinesByUser({ username }) {
+  try { //Probably revisit to clean up
+    const user = await getUserByUsername(username)
+    const routines = await getAllRoutines()
+    return routines.filter(routine => {
+      return routine.creatorId === user.id
+    })
+  } catch (error) {
+    throw error
+  }
+}
 
-async function getPublicRoutinesByUser({ username }) {}
+async function getPublicRoutinesByUser({ username }) {
+  try {
+    const unfilteredRoutines = await getAllRoutinesByUser({ username })    
+    return unfilteredRoutines.filter(routine => {
+      return routine.isPublic
+    })
+  } catch (error) {
+    throw error
+  }
+}
 
-async function getPublicRoutinesByActivity({ id }) {}
+async function getPublicRoutinesByActivity({ id }) {
+  //from activity id -> match all routineIds that are paired with actId -> avoid duplicates -> get routines from id -> filter by public
+  try {
+    const { rows: routineIdObjs } = await client.query(`
+      SELECT DISTINCT routine_activities."routineId"
+      FROM routine_activities
+      WHERE "activityId" = $1;
+    `, [id])
+    console.log("Routine Id Obj is: ", routineIdObjs)
+    console.log("Id type is: ", routineIdObjs[0].routineId)
+    const routineIds = routineIdObjs.map(obj => {
+      obj.routineId
+    })
+    console.log("Routine Ids are: ", routineIds)
+    /* const routinesById = await Promise.all(routineIds.map(routineId => {
+      getRoutineById(routineId)
+    }))
+    console.log('Routines by id: ', routinesById)
+    return routinesById.filter(routine => routine.isPublic) */
+  } catch (error) {
+    throw error
+  }
+}
 
 async function updateRoutine({ id, ...fields }) {}
 
