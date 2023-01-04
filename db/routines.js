@@ -47,8 +47,8 @@ async function getRoutineById(id) {
 
     routine.creatorName = creator.creatorName
     routine.activities = activities
-    
-    console.log(routine)
+
+    //console.log(routine)
     return routine
   } catch (error) {
     throw error
