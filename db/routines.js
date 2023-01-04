@@ -29,8 +29,10 @@ async function getRoutineById(id) {
     } */
     
     //Add activities obj and extras
+    //Move to separate function
     const { rows: activities } = await client.query(`
-      SELECT activities.*, routine_activities.duration, routine_activities.count
+      SELECT activities.*, routine_activities.duration, routine_activities.count, 
+      routine_activities."routineId", routine_activities.id AS "routineActivityId"
       FROM activities
       JOIN routine_activities ON activities.id = routine_activities."activityId"
       WHERE routine_activities."routineId" = $1;
@@ -43,28 +45,10 @@ async function getRoutineById(id) {
       WHERE routines.id = $1;
     `, [id])
 
-    routine.activities = activities
-    //Could we do this in SQL? Probably, but this works too!
-    routine.activities.map(
-      activity => activity.routineId = id
-    )
-    
-    //My beast is arisen, and we got those ids
-    //Because the callback has to be async for the query to work, the assignment to the obj is also treated as a promise. The Promise.all() method fulfills them and the assignment works.
-    await Promise.all(routine.activities.map(
-        async activity => {
-        const { rows: [routineActivityId] } = await client.query(`
-          SELECT routine_activities.id
-          FROM routine_activities
-          WHERE routine_activities."routineId" = $1
-          AND routine_activities."activityId" = $2; 
-        `, [activity.routineId, activity.id])
-        activity.routineActivityId = routineActivityId.id
-      }
-    ))
-
     routine.creatorName = creator.creatorName
-    //console.log(routine)
+    routine.activities = activities
+    
+    console.log(routine)
     return routine
   } catch (error) {
     throw error
@@ -133,6 +117,7 @@ async function getPublicRoutinesByActivity({ id }) {
       WHERE "activityId" = $1;
     `, [id])
 
+    //Don't forget the return on multiline array methods. You will be in pain!!
     const routinesById = await Promise.all(routineIdObjs.map(rObj => {
       return getRoutineById(rObj.routineId)
     }))
