@@ -26,11 +26,11 @@ router.use("/routines", routinesRouter);
 const routineActivitiesRouter = require("./routineActivities");
 router.use("/routine_activities", routineActivitiesRouter);
 
-router.use((error, req, res, next) => {
-  res.send({
-    name: error.name,
-    message: error.message,
-  });
-});
+// router.use((error, req, res, next) => {
+//   if (error.name === "AuthorizationHeaderError") {
+//     res.status(401).send(error);
+//   }
+//   res.send(error);
+// });
 
 module.exports = router;
