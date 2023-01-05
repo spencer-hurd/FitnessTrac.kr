@@ -7,7 +7,8 @@ const client = require('./db/client')
 const app = express()
 
 // Setup your Middleware and API Router here
-client.connect()
+//Check where else client is connected bc it still works.
+//client.connect()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors())
