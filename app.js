@@ -8,6 +8,7 @@ const app = express()
 
 // Setup your Middleware and API Router here
 //Check where else client is connected bc it still works.
+//Think it just connects on every query called by the DB adapter
 //client.connect()
 app.use(morgan('dev'))
 app.use(express.json())
@@ -29,7 +30,6 @@ app.get("*", (req, res) => {
 //error handler
 app.use((error, req, res, next) => {
   console.error("SERVER ERROR: ", error);
-  if (res.statusCode < 400 && res.statusCode !== 200) res.status(500);
   console.log({
     error: error.message,
     name: error.name,
