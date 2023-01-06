@@ -39,6 +39,8 @@ async function getRoutineActivitiesByRoutine({ id }) {
       SELECT * FROM routine_activities
       WHERE routine_activities."routineId" = $1;
     `, [id])    
+    console.log('RA routineId:  ', id)
+    console.log("db RAs ----.", routine_activities)
     return routine_activities
   } catch (error) {
     throw error

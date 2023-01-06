@@ -22,11 +22,9 @@ async function getRoutineById(id) {
       SELECT * FROM routines
       WHERE id = $1;
     `, [id])
-    /* if (!routine) {
-      throw {
-
-      }
-    } */
+     if (!routine) {
+      return null
+    }
     
     //Add activities obj and extras
     //Move to separate function
@@ -167,10 +165,12 @@ async function destroyRoutine(id) {
       DELETE FROM routine_activities
       WHERE routine_activities."routineId" = $1;
     `, [id])
-    await client.query(`
+    const { rows: [destroyedRoutine] } = await client.query(`
       DELETE FROM routines
-      WHERE routines.id = $1;
+      WHERE routines.id = $1
+      RETURNING *;
     `, [id])
+    return destroyedRoutine
   } catch (error) {
     throw error
   }
