@@ -17,10 +17,31 @@ app.use(cors())
 app.use('/api', apiRouter)
 
 //path not found handler
+app.get("*", (req, res) => {
+  res
+    .status(404)
+    .send({
+      error: "404 - Not Found",
+      message: "No route found for the requested URL",
+    });
+});
 
 //error handler
 app.use((error, req, res, next) => {
-  res.send(error)
-})
+  console.error("SERVER ERROR: ", error);
+  if (res.statusCode < 400 && res.statusCode !== 200) res.status(500);
+  console.log({
+    error: error.message,
+    name: error.name,
+    message: error.message,
+    table: error.table,
+  });
+  res.send({
+    error: error.message,
+    name: error.name,
+    message: error.message,
+    table: error.table,
+  });
+});
 
 module.exports = app;

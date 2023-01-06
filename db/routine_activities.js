@@ -38,9 +38,7 @@ async function getRoutineActivitiesByRoutine({ id }) {
     const { rows: routine_activities } = await client.query(`
       SELECT * FROM routine_activities
       WHERE routine_activities."routineId" = $1;
-    `, [id])    
-    console.log('RA routineId:  ', id)
-    console.log("db RAs ----.", routine_activities)
+    `, [id])
     return routine_activities
   } catch (error) {
     throw error
