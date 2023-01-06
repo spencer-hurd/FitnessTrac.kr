@@ -3,55 +3,71 @@ const { getUserByUsername } = require("./users");
 
 async function createRoutine({ creatorId, isPublic, name, goal }) {
   try {
-    const { rows: [routine] } = await client.query(`
+    const {
+      rows: [routine],
+    } = await client.query(
+      `
       INSERT INTO routines (
       "creatorId", "isPublic", name, goal)
       VALUES ($1, $2, $3, $4)
       RETURNING *;
-    `, [creatorId, isPublic, name, goal])
+    `,
+      [creatorId, isPublic, name, goal]
+    );
 
-    return routine
+    return routine;
   } catch (error) {
-    console.error(`Can not create routine named: ${ name }`)
+    console.error(`Can not create routine named: ${name}`);
   }
 }
 
 async function getRoutineById(id) {
   try {
-    const { rows: [routine] } = await client.query(`
+    const {
+      rows: [routine],
+    } = await client.query(
+      `
       SELECT * FROM routines
       WHERE id = $1;
-    `, [id])
-    /* if (!routine) {
-      throw {
+    `,
+      [id]
+    );
+    if (!routine) {
+      return null;
+    }
 
-      }
-    } */
-    
     //Add activities obj and extras
     //Move to separate function
-    const { rows: activities } = await client.query(`
+    const { rows: activities } = await client.query(
+      `
       SELECT activities.*, routine_activities.duration, routine_activities.count, 
       routine_activities."routineId", routine_activities.id AS "routineActivityId"
       FROM activities
       JOIN routine_activities ON activities.id = routine_activities."activityId"
       WHERE routine_activities."routineId" = $1;
-    `, [id])
+    `,
+      [id]
+    );
 
-    const { rows: [creator] } = await client.query(`
+    const {
+      rows: [creator],
+    } = await client.query(
+      `
       SELECT users.username as "creatorName"
       FROM users
       JOIN routines ON users.id = routines."creatorId"
       WHERE routines.id = $1;
-    `, [id])
+    `,
+      [id]
+    );
 
-    routine.creatorName = creator.creatorName
-    routine.activities = activities
+    routine.creatorName = creator.creatorName;
+    routine.activities = activities;
 
     //console.log(routine)
-    return routine
+    return routine;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -61,9 +77,9 @@ async function getRoutinesWithoutActivities() {
     SELECT *
     FROM routines;
     `);
-    return routines
+    return routines;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -84,55 +100,61 @@ async function getAllRoutines() {
 
 async function getAllPublicRoutines() {
   try {
-    const routines = await getAllRoutines()
-    return routines.filter(routine => {
-      return routine.isPublic
-    })    
+    const routines = await getAllRoutines();
+    return routines.filter((routine) => {
+      return routine.isPublic;
+    });
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
 async function getAllRoutinesByUser({ username }) {
-  try { //Probably revisit to clean up
-    const user = await getUserByUsername(username)
-    const routines = await getAllRoutines()
-    return routines.filter(routine => {
-      return routine.creatorId === user.id
-    })
+  try {
+    //Probably revisit to clean up
+    const user = await getUserByUsername(username);
+    const routines = await getAllRoutines();
+    return routines.filter((routine) => {
+      return routine.creatorId === user.id;
+    });
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
 async function getPublicRoutinesByUser({ username }) {
   try {
-    const unfilteredRoutines = await getAllRoutinesByUser({ username })    
-    return unfilteredRoutines.filter(routine => {
-      return routine.isPublic
-    })
+    const unfilteredRoutines = await getAllRoutinesByUser({ username });
+    return unfilteredRoutines.filter((routine) => {
+      return routine.isPublic;
+    });
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
 async function getPublicRoutinesByActivity({ id }) {
   //from activity id -> match all routineIds that are paired with actId -> avoid duplicates -> get routines from id -> filter by public
   try {
-    const { rows: routineIdObjs } = await client.query(`
+    const { rows: routineIdObjs } = await client.query(
+      `
       SELECT DISTINCT routine_activities."routineId"
       FROM routine_activities
       WHERE "activityId" = $1;
-    `, [id])
+    `,
+      [id]
+    );
 
     //Don't forget the return on multiline array methods. You will be in pain!!
-    const routinesById = await Promise.all(routineIdObjs.map(rObj => {
-      return getRoutineById(rObj.routineId)
-    }))
+    const routinesById = await Promise.all(
+      routineIdObjs.map((rObj) => {
+        return getRoutineById(rObj.routineId);
+      })
+    );
 
-    return routinesById.filter(routine => routine.isPublic)
+    return routinesById.filter((routine) => routine.isPublic);
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -140,39 +162,52 @@ async function updateRoutine({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-  
+
   try {
     if (setString.length > 0) {
       const {
         rows: [routine],
-      } = await client.query(`
+      } = await client.query(
+        `
         UPDATE routines 
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
-        `, Object.values(fields));
-        
+        `,
+        Object.values(fields)
+      );
+
       return routine;
     } else {
       return;
     }
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
 async function destroyRoutine(id) {
   try {
-    await client.query(`
+    await client.query(
+      `
       DELETE FROM routine_activities
       WHERE routine_activities."routineId" = $1;
-    `, [id])
-    await client.query(`
+    `,
+      [id]
+    );
+    const {
+      rows: [destroyedRoutine],
+    } = await client.query(
+      `
       DELETE FROM routines
-      WHERE routines.id = $1;
-    `, [id])
+      WHERE routines.id = $1
+      RETURNING *;
+    `,
+      [id]
+    );
+    return destroyedRoutine;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 

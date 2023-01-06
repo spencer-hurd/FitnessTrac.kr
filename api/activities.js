@@ -1,4 +1,5 @@
 const express = require("express");
+const { getPublicRoutinesByActivity } = require("../db");
 const {
   getAllActivities,
   createActivity,
@@ -18,7 +19,6 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   try {
     const activities = await getAllActivities();
-    console.log(activities);
     res.send(activities);
   } catch (error) {
     next(error);
@@ -78,7 +78,6 @@ router.patch("/:activityId", async (req, res, next) => {
     }
 
     const oldActivityName = activityExists.name;
-    console.log(oldActivityName);
     const doesNewNameExist = await getActivityByName(req.body.name);
 
     if (!doesNewNameExist || oldActivityName === req.body.name) {
@@ -101,5 +100,26 @@ router.patch("/:activityId", async (req, res, next) => {
 });
 
 // GET /api/activities/:activityId/routines
+router.get("/:activityId/routines", async (req, res, next) => {
+  const activityId = req.params.activityId;
+  try {
+    const activityExists = await getActivityById(activityId);
+    if (!activityExists) {
+      next({
+        error: "ActivityNotFoundError",
+        name: "ActivityNotFoundError",
+        message: ActivityNotFoundError(activityId),
+      });
+    } else {
+      const argObj = {
+        id: activityId,
+      };
+      const routines = await getPublicRoutinesByActivity(argObj);
+      res.send(routines);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
