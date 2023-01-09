@@ -1,12 +1,10 @@
 /* eslint-disable no-useless-catch */
 const { JWT_SECRET } = process.env;
 const jwt = require("jsonwebtoken");
+
 const express = require("express");
-const { getUserByUsername, createUser, getUser, getUserById, getPublicRoutinesByUser, getAllRoutinesByUser } = require('../db');
-const validateToken = require('./helpers');
-const { UserTakenError, UnauthorizedError, PasswordTooShortError } = require('../errors');
 const router = express.Router();
-const validateToken = require("./helpers");
+const validateToken = require('./helpers');
 const {
   getUserByUsername,
   createUser,
