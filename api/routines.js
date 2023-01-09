@@ -44,6 +44,7 @@ router.post("/", async (req, res, next) => {
     res.send(newRoutine);
   } catch (error) {}
 });
+
 // PATCH /api/routines/:routineId
 router.patch("/:routineId", async (req, res, next) => {
   const routineId = req.params.routineId;
@@ -86,12 +87,12 @@ router.patch("/:routineId", async (req, res, next) => {
     next(error);
   }
 });
+
 // DELETE /api/routines/:routineId
 router.delete("/:routineId", async (req, res, next) => {
   const routineId = req.params.routineId;
   try {
     const isValidToken = await validateToken(req);
-
     if (!isValidToken) {
       res.status(401);
       next({
@@ -123,12 +124,12 @@ router.delete("/:routineId", async (req, res, next) => {
     next(error);
   }
 });
+
 // POST /api/routines/:routineId/activities
 router.post("/:routineId/activities", async (req, res, next) => {
   const routineId = req.params.routineId;
   try {
     const isValidToken = await validateToken(req);
-
     if (!isValidToken) {
       res.status(401);
       next({
@@ -182,4 +183,5 @@ router.post("/:routineId/activities", async (req, res, next) => {
     next(error);
   }
 });
+
 module.exports = router;

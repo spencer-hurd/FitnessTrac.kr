@@ -53,6 +53,7 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
+
 // PATCH /api/activities/:activityId
 router.patch("/:activityId", async (req, res, next) => {
   const activityId = req.params.activityId;
@@ -67,7 +68,6 @@ router.patch("/:activityId", async (req, res, next) => {
         message: UnauthorizedError(),
       });
     }
-
     const activityExists = await getActivityById(activityId);
     if (!activityExists) {
       next({
@@ -76,10 +76,8 @@ router.patch("/:activityId", async (req, res, next) => {
         message: ActivityNotFoundError(activityId),
       });
     }
-
     const oldActivityName = activityExists.name;
     const doesNewNameExist = await getActivityByName(req.body.name);
-
     if (!doesNewNameExist || oldActivityName === req.body.name) {
       const updatedActivity = await updateActivity({
         id: activityId,

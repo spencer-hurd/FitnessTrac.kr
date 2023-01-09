@@ -14,7 +14,6 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
     `,
       [creatorId, isPublic, name, goal]
     );
-
     return routine;
   } catch (error) {
     console.error(`Can not create routine named: ${name}`);
@@ -35,7 +34,6 @@ async function getRoutineById(id) {
     if (!routine) {
       return null;
     }
-
     //Add activities obj and extras
     //Move to separate function
     const { rows: activities } = await client.query(
@@ -48,7 +46,6 @@ async function getRoutineById(id) {
     `,
       [id]
     );
-
     const {
       rows: [creator],
     } = await client.query(
@@ -60,11 +57,8 @@ async function getRoutineById(id) {
     `,
       [id]
     );
-
     routine.creatorName = creator.creatorName;
     routine.activities = activities;
-
-    //console.log(routine)
     return routine;
   } catch (error) {
     throw error;
@@ -89,7 +83,6 @@ async function getAllRoutines() {
     SELECT routines.id
     FROM routines;
     `);
-
     return await Promise.all(
       routineIds.map((routine) => getRoutineById(routine.id))
     );
@@ -151,7 +144,6 @@ async function getPublicRoutinesByActivity({ id }) {
         return getRoutineById(rObj.routineId);
       })
     );
-
     return routinesById.filter((routine) => routine.isPublic);
   } catch (error) {
     throw error;
@@ -162,7 +154,6 @@ async function updateRoutine({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-
   try {
     if (setString.length > 0) {
       const {
@@ -176,7 +167,6 @@ async function updateRoutine({ id, ...fields }) {
         `,
         Object.values(fields)
       );
-
       return routine;
     } else {
       return;

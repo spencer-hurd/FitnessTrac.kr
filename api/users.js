@@ -20,7 +20,6 @@ const { JWT_SECRET } = process.env;
 // POST /api/users/register
 router.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
-
   try {
     const _user = await getUserByUsername(username);
 
@@ -38,7 +37,6 @@ router.post("/register", async (req, res, next) => {
         message: PasswordTooShortError(),
       });
     }
-
     const user = await createUser({
       username,
       password,
@@ -54,7 +52,6 @@ router.post("/register", async (req, res, next) => {
         expiresIn: "1w",
       }
     );
-
     res.send({
       message: "thank you for signing up",
       token,
@@ -64,6 +61,7 @@ router.post("/register", async (req, res, next) => {
     next(error);
   }
 });
+
 // POST /api/users/login
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -94,11 +92,11 @@ router.post("/login", async (req, res, next) => {
     next(error);
   }
 });
+
 // GET /api/users/me
 router.get("/me", async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
-
   if (!auth) {
     res.status(401);
     next({
@@ -108,7 +106,6 @@ router.get("/me", async (req, res, next) => {
     });
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
-
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
 
@@ -126,10 +123,10 @@ router.get("/me", async (req, res, next) => {
     });
   }
 });
+
 // GET /api/users/:username/routines
 router.get("/:username/routines", async (req, res, next) => {
   const username = req.params.username;
-
   try {
     const tokenData = await validateToken(req);
     const user = await getUserByUsername(username);
@@ -140,7 +137,6 @@ router.get("/:username/routines", async (req, res, next) => {
         message: `User: ${username}`,
       });
     }
-
     if (username === tokenData.username) {
       const allUserRoutines = await getAllRoutinesByUser(user);
       res.send(allUserRoutines);
@@ -152,4 +148,5 @@ router.get("/:username/routines", async (req, res, next) => {
     next({ error, name, message });
   }
 });
+
 module.exports = router;

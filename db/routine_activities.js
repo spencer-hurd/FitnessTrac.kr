@@ -62,7 +62,6 @@ async function updateRoutineActivity({ id, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
-
   try {
     if (setString.length > 0) {
       const {

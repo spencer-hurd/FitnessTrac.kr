@@ -18,7 +18,6 @@ router.patch("/:routineActivityId", async (req, res, next) => {
   const routineActivityId = req.params.routineActivityId;
   try {
     const isValidToken = await validateToken(req);
-
     if (!isValidToken) {
       res.status(401);
       next({
@@ -35,9 +34,7 @@ router.patch("/:routineActivityId", async (req, res, next) => {
         message: `Routine Activity ${routineActivityId} not found.`,
       });
     }
-
     const _routine = await getRoutineById(_routineActivity.routineId);
-
     if (_routine.creatorId !== isValidToken.id) {
       res.status(403);
       next({
@@ -57,12 +54,12 @@ router.patch("/:routineActivityId", async (req, res, next) => {
     next(error);
   }
 });
+
 // DELETE /api/routine_activities/:routineActivityId
 router.delete("/:routineActivityId", async (req, res, next) => {
   const routineActivityId = req.params.routineActivityId;
   try {
     const isValidToken = await validateToken(req);
-
     if (!isValidToken) {
       res.status(401);
       next({

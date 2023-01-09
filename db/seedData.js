@@ -1,17 +1,16 @@
-const { 
+const {
   createUser,
   createActivity,
   createRoutine,
   getRoutinesWithoutActivities,
   getAllActivities,
-  addActivityToRoutine
- } = require('./index');
-const client = require("./client")
+  addActivityToRoutine,
+} = require("./index");
+const client = require("./client");
 
 async function dropTables() {
   console.log("Dropping All Tables...");
   // drop all tables, in the correct order
-
   try {
     await client.query(`
       DROP TABLE IF EXISTS routine_activities;
@@ -29,7 +28,6 @@ async function dropTables() {
 async function createTables() {
   console.log("Starting to build tables...");
   // create all tables, in the correct order
-
   //rewrite users using bCrypt
   try {
     await client.query(`
@@ -81,7 +79,6 @@ async function createInitialUsers() {
       { username: "glamgal", password: "glamgal123" },
     ];
     const users = await Promise.all(usersToCreate.map(createUser));
-
     console.log("Users created:");
     console.log(users);
     console.log("Finished creating users!");
@@ -94,7 +91,6 @@ async function createInitialUsers() {
 async function createInitialActivities() {
   try {
     console.log("Starting to create activities...");
-
     const activitiesToCreate = [
       {
         name: "wide-grip standing barbell curl",
@@ -120,7 +116,6 @@ async function createInitialActivities() {
 
     console.log("activities created:");
     console.log(activities);
-
     console.log("Finished creating activities!");
   } catch (error) {
     console.error("Error creating activities!");
@@ -130,7 +125,6 @@ async function createInitialActivities() {
 
 async function createInitialRoutines() {
   console.log("starting to create routines...");
-
   const routinesToCreate = [
     {
       creatorId: 2,
@@ -170,7 +164,6 @@ async function createInitialRoutineActivities() {
     await getRoutinesWithoutActivities();
   const [bicep1, bicep2, chest1, chest2, leg1, leg2, leg3] =
     await getAllActivities();
-
   const routineActivitiesToCreate = [
     {
       routineId: bicepRoutine.id,
