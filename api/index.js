@@ -5,8 +5,9 @@ const { JWT_SECRET } = process.env;
 
 // GET /api/health
 router.get("/health", async (req, res, next) => {
+  //res.body.message = 'All good here boss'
   res.send({
-    message: "Server Working",
+    message: "All good here boss",
   });
 });
 

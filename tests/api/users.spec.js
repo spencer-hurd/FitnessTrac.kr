@@ -255,7 +255,6 @@ describe("/api/users", () => {
       expectNotToBeError(response.body);
 
       const routinesFromDB = await getAllRoutinesByUser(fakeUser);
-
       expect(response.body).toEqual([...routinesFromDB]);
     });
   });

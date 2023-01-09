@@ -18,23 +18,27 @@ router.patch("/:routineActivityId", async (req, res, next) => {
   const routineActivityId = req.params.routineActivityId;
   try {
     const isValidToken = await validateToken(req);
+
     if (!isValidToken) {
       res.status(401);
       next({
         error: "UnauthorizedError",
-        name: "UnauthorizedError",
         message: UnauthorizedError(),
+        name: "UnauthorizedError",
       });
     }
     const _routineActivity = await getRoutineActivityById(routineActivityId);
+
     if (!_routineActivity) {
       next({
         error: "RoutineActivityNotFoundError",
         name: "RoutineActivityNotFoundError",
-        message: `Routine Activity ${routineActivityId} not found.`,
+        message: `Routine activity ${routineActivityId} not found`,
       });
     }
+
     const _routine = await getRoutineById(_routineActivity.routineId);
+
     if (_routine.creatorId !== isValidToken.id) {
       res.status(403);
       next({
@@ -43,12 +47,13 @@ router.patch("/:routineActivityId", async (req, res, next) => {
         name: "UnauthorizedUpdateError",
       });
     }
-    const routineActObj = {
+
+    const RAObj = {
       id: routineActivityId,
       count: req.body.count,
       duration: req.body.duration,
     };
-    const updatedRoutineActivity = await updateRoutineActivity(routineActObj);
+    const updatedRoutineActivity = await updateRoutineActivity(RAObj);
     res.send(updatedRoutineActivity);
   } catch (error) {
     next(error);
@@ -60,36 +65,41 @@ router.delete("/:routineActivityId", async (req, res, next) => {
   const routineActivityId = req.params.routineActivityId;
   try {
     const isValidToken = await validateToken(req);
+
     if (!isValidToken) {
       res.status(401);
       next({
         error: "UnauthorizedError",
-        name: "UnauthorizedError",
         message: UnauthorizedError(),
+        name: "UnauthorizedError",
       });
     }
     const _routineActivity = await getRoutineActivityById(routineActivityId);
+
     if (!_routineActivity) {
       next({
         error: "RoutineActivityNotFoundError",
         name: "RoutineActivityNotFoundError",
-        message: `Routine Activity ${routineActivityId} not found.`,
+        message: `Routine activity ${routineActivityId} not found`,
       });
     }
+
     const _routine = await getRoutineById(_routineActivity.routineId);
+
     if (_routine.creatorId !== isValidToken.id) {
       res.status(403);
       next({
         error: "UnauthorizedDeleteError",
-        name: "UnauthorizedDeleteError",
         message: UnauthorizedDeleteError(isValidToken.username, _routine.name),
+        name: "UnauthorizedDeleteError",
       });
     }
-    const destroyedRoutineActivity = await destroyRoutineActivity(
+
+    const deletedRoutineActivity = await destroyRoutineActivity(
       routineActivityId
     );
-    destroyedRoutineActivity.success = true;
-    res.send(destroyedRoutineActivity);
+    deletedRoutineActivity.sucess = true;
+    res.send(deletedRoutineActivity);
   } catch (error) {
     next(error);
   }

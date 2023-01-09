@@ -34,6 +34,7 @@ async function getRoutineById(id) {
     if (!routine) {
       return null;
     }
+
     //Add activities obj and extras
     //Move to separate function
     const { rows: activities } = await client.query(

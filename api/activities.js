@@ -1,19 +1,19 @@
 const express = require("express");
-const { getPublicRoutinesByActivity } = require("../db");
+const router = express.Router();
 const {
   getAllActivities,
   createActivity,
   getActivityByName,
   updateActivity,
   getActivityById,
-} = require("../db/activities");
+  getPublicRoutinesByActivity,
+} = require("../db");
 const {
   UnauthorizedError,
   ActivityExistsError,
   ActivityNotFoundError,
 } = require("../errors");
 const validateToken = require("./helpers");
-const router = express.Router();
 
 // GET /api/activities
 router.get("/", async (req, res, next) => {
@@ -34,11 +34,13 @@ router.post("/", async (req, res, next) => {
       res.status(401);
       next({
         error: "UnauthorizedError",
-        name: "UnauthorizedError",
         message: UnauthorizedError(),
+        name: "UnauthorizedError",
       });
     }
+
     const activityExists = await getActivityByName(req.body.name);
+
     if (!activityExists) {
       const newActivity = await createActivity(req.body);
       res.send(newActivity);
@@ -57,6 +59,7 @@ router.post("/", async (req, res, next) => {
 // PATCH /api/activities/:activityId
 router.patch("/:activityId", async (req, res, next) => {
   const activityId = req.params.activityId;
+
   try {
     const isValidToken = await validateToken(req);
 
@@ -64,10 +67,12 @@ router.patch("/:activityId", async (req, res, next) => {
       res.status(401);
       next({
         error: "UnauthorizedError",
-        name: "UnauthorizedError",
         message: UnauthorizedError(),
+        name: "UnauthorizedError",
       });
     }
+
+    //Can't update an activity that does not exist
     const activityExists = await getActivityById(activityId);
     if (!activityExists) {
       next({
@@ -76,14 +81,19 @@ router.patch("/:activityId", async (req, res, next) => {
         message: ActivityNotFoundError(activityId),
       });
     }
+
+    //Don't update name to one that already exists unless it is the old activity
     const oldActivityName = activityExists.name;
     const doesNewNameExist = await getActivityByName(req.body.name);
+
     if (!doesNewNameExist || oldActivityName === req.body.name) {
-      const updatedActivity = await updateActivity({
+      const updateArgs = {
         id: activityId,
         name: req.body.name,
         description: req.body.description,
-      });
+      };
+
+      const updatedActivity = await updateActivity(updateArgs);
       res.send(updatedActivity);
     } else {
       next({
