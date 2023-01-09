@@ -1,30 +1,27 @@
-require("dotenv").config()
-const express = require("express")
-const cors = require('cors')
-const morgan = require('morgan')
-const apiRouter = require('./api')
-const client = require('./db/client')
-const app = express()
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const apiRouter = require("./api");
+const client = require("./db/client");
+const app = express();
 
 // Setup your Middleware and API Router here
 //Check where else client is connected bc it still works.
 //Think it just connects on every query called by the DB adapter
 //client.connect()
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(cors())
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(cors());
 
-
-app.use('/api', apiRouter)
+app.use("/api", apiRouter);
 
 //path not found handler
 app.get("*", (req, res) => {
-  res
-    .status(404)
-    .send({
-      error: "404 - Not Found",
-      message: "No route found for the requested URL",
-    });
+  res.status(404).send({
+    error: "404 - Not Found",
+    message: "No route found for the requested URL",
+  });
 });
 
 //error handler
