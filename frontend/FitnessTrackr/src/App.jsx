@@ -1,32 +1,30 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useImmerReducer } from 'use-immer'
 import './App.css'
 
+const initState = {counterValue: 0}
+
+function counterReducer(draft, action) {
+  switch (action.type) {
+    case "reset":
+      return initState
+    case "increment":
+      draft.counterValue++
+      break
+    case "decrement":
+      return void draft.counterValue--
+  }
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [state, dispatch] = useImmerReducer(counterReducer, initState)
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        It me. Oogah boogah
-      </p>
+      <h1>Here's a counter controlled by immer: {state.counterValue}</h1>
+      <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
     </div>
   )
 }
