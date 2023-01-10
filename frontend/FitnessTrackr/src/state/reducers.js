@@ -8,6 +8,10 @@ export const activitiesInitState = {
   activities: []
 }
 
+export const userInitState = {
+  user: {}
+}
+
 export const routineReducer = (draft, action) => {
   const { type, payload } = action
   switch (type) {
@@ -25,7 +29,18 @@ export const activitiesReducer = (draft, action) => {
     case 'populate_activities':
       draft.activities = payload
       break
+    default:
+      throw new Error(`No case for type ${type} found in activitiesReducer.`)
+  }
+}
+
+export const userReducer = (draft, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case 'set_user':
+      draft.user = payload
+      break
       default:
-        throw new Error(`No case for type ${type} found in activitiesReducer.`)
+        throw new Error(`No case for type ${type} found in userReducer.`)
   }
 }

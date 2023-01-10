@@ -6,6 +6,8 @@ import './App.css'
 
 function App() {
 
+  //Figure out setting user with localStorage and useEffect
+
   //ROUTES
     //Home - Routines but with an info header or something
     //AuthPage -> Points to either register or sign in - swap the form based on the URL - probably a fly-in or modal
