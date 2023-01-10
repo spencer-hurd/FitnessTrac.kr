@@ -4,7 +4,9 @@ const Routine = ({routineData}) => {
   return (
     <>
       <div className="routineCard">
-        <p>{routineData}</p>
+        <p>{routineData.name}</p>
+        <p>{routineData.creatorName}</p>
+        <p>{routineData.goal}</p>
       </div>
     </>
   )
