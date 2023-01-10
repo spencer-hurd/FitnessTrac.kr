@@ -1,9 +1,11 @@
 import React from "react";
 
-const Routine = () => {
+const Routine = ({routineData}) => {
   return (
     <>
-      <p>This is a Routine!</p>
+      <div className="routineCard">
+        <p>{routineData}</p>
+      </div>
     </>
   )
 }
