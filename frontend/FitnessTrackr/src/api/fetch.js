@@ -1,17 +1,10 @@
 const API_URL = 'http://localhost:3003/api'
 
-//for public routines auth'd or unauth'd
-export const getRoutines = async (token) => {
+//for public routines
+export const getRoutines = async () => {
   try {
-    const response = await fetch(`${API_URL}/routines`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${token}`
-			},
-		});
+    const response = await fetch(`${API_URL}/routines`);
 		const routines = await response.json();
-    console.log(routines)
 		return routines;
   } catch (error) {
     throw error
@@ -21,4 +14,14 @@ export const getRoutines = async (token) => {
 //for use at a user routines endpoint
 export const getUserRoutines = async (username) => {
 
+}
+
+export const getActivities = async () => {
+  try {
+    const response = await fetch(`${API_URL}/activities`)
+    const activities = await response.json()
+    return activities    
+  } catch (error) {
+    throw error
+  }
 }

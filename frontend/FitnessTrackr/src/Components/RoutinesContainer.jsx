@@ -1,5 +1,5 @@
 import {React, useEffect} from "react";
-import useRoutines from "../state/context";
+import { useRoutines } from "../state/context";
 import { getRoutines } from "../api/fetch";
 import Routine from "./Routine";
 
@@ -15,15 +15,17 @@ const RoutinesContainer = () => {
   }, [])
 
   return (
-    <div className="routines-container">{
-      routines.map((routine, index) => {
+    routines.length > 0
+    ? <div className="routines-container">{
+      routines.map((routine) => {
         return (
-          <div className="routine-holder" key={index}>
+          <div className="routine-card" key={routine.id}>
             <Routine routineData={routine}/>
           </div>
         )
       })
     }</div>
+    : null
   )
 }
 

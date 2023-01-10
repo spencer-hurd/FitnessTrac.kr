@@ -1,15 +1,25 @@
 import { createContext, useContext } from "react";
 import { useImmerReducer } from "use-immer";
-import { routineInitState } from "./reducers";
-import routineReducer from "./reducers";
+import { routineInitState, routineReducer, activitiesInitState, activitiesReducer } from "./reducers";
 
 const RoutineContext = createContext(routineInitState)
+const ActivitiesContext = createContext(activitiesInitState)
 
-const useRoutines = () => {
+export const useRoutines = () => {
   const context = useContext(RoutineContext)
 
   if (context === undefined) {
     throw new Error("useRoutines must be used within RoutineContext")
+  }
+
+  return context
+}
+
+export const useActivities = () => {
+  const context = useContext(ActivitiesContext)
+
+  if (context === undefined) {
+    throw new Error("useActivities must be used within ActivitiesContext")
   }
 
   return context
@@ -33,4 +43,19 @@ export const RoutineProvider = ({children}) => {
   return <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
 }
 
-export default useRoutines
+export const ActivitiesProvider = ({children}) => {
+  const [state, dispatch] = useImmerReducer(activitiesReducer, activitiesInitState)
+
+  const populateActivities = (activitiesList) => {
+    dispatch({
+      type: 'populate_activities',
+      payload: activitiesList
+    })
+  }
+
+  const value = {
+    activities: state.activities,
+    populateActivities
+  }
+  return <ActivitiesContext.Provider value={value}>{children}</ActivitiesContext.Provider> 
+}

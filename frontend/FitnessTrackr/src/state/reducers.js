@@ -1,19 +1,31 @@
-
 //non user state
 export const routineInitState = {
-  routines: ["Hi i'm routino", "Howdy, I'm routina", "Yo, I'm routinx"],
+  routines: [],
   activities: [],
 }
 
-const routineReducer = (draft, action) => {
+export const activitiesInitState = {
+  activities: []
+}
+
+export const routineReducer = (draft, action) => {
   const { type, payload } = action
   switch (type) {
     case 'populate_routines':
       draft.routines = payload
       break
     default:
-      throw new Error(`No case for type ${type} found in routineReducer.`);
+      throw new Error(`No case for type ${type} found in routineReducer.`)
   }
 }
 
-export default routineReducer
+export const activitiesReducer = (draft, action) => {
+  const { type, payload } = action
+  switch (type) {
+    case 'populate_activities':
+      draft.activities = payload
+      break
+      default:
+        throw new Error(`No case for type ${type} found in activitiesReducer.`)
+  }
+}

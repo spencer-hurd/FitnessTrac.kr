@@ -1,8 +1,6 @@
-import { useEffect } from 'react'
-import { useImmerReducer } from 'use-immer'
-import { RoutineProvider } from './state/context'
+import { RoutineProvider, ActivitiesProvider } from './state/context'
 import { Routes, Route } from 'react-router-dom'
-import { Header, Home } from './Components'
+import { Header, Home, Routines, Activities } from './Components'
 
 import './App.css'
 
@@ -17,19 +15,23 @@ function App() {
           //Activites - Maps over activites for that routine - allows for simple editing of routines
       //CreateRoutineForm - probably another modal
     //users -- points to either selected user's page or auth'd current user's profile
-      //Profile - routines from -> /users/:username/routines -- visual distinction for private routines -- sugar on top :3
+      //userId - routines from -> /users/:username/routines -- visual distinction for private routines -- sugar on top :3
         //Reuse RoutinesContainer etc.
     //Activities - shows all activities - form for new activity if logged in
       //ActivitiesContainer - Think of a different way to format these when solo
       //CreateActivityForm
   return (
     <RoutineProvider>
+      <ActivitiesProvider>
       <div className="App">
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/routines' element={<Routines />}/>
+          <Route path='/activities' element={<Activities />}/>
         </Routes>
       </div>
+      </ActivitiesProvider>
     </RoutineProvider>
   )
 }
