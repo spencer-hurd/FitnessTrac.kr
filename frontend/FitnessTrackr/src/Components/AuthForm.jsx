@@ -9,6 +9,7 @@ const AuthForm = ({closeModal}) => {
   let usernameRef = useRef()
   let passwordRef = useRef()
 
+  //login - [0], reg - [1]
   const authPageData = {
     headerStr: ['No account? Click here to create one', 'Already have an account? Log in here'],
     headerBtn: ['Register', 'Sign in'],
@@ -40,12 +41,11 @@ const AuthForm = ({closeModal}) => {
             console.log(rememberMe)
             rememberMe ? localStorage.setItem('token', result.token) : null;
             rememberMe ? localStorage.setItem('user', result.user) : null;
-            //navToHome();
+            closeModal()
           } catch (err) {
             throw err
           }
-          //console.log({user: usernameRef.current.value, password: passwordRef.current.value})
-          closeModal()
+          
       }}>
         <div>
           <label htmlFor="username">Username: </label>
