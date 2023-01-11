@@ -9,8 +9,8 @@ export const activitiesInitState = {
 }
 
 export const userInitState = {
-  user: {},
-  token: ''
+  user: JSON.parse(window.localStorage.getItem('user')),
+  token: window.localStorage.getItem('token')
 }
 
 export const routineReducer = (draft, action) => {

@@ -43,7 +43,10 @@ const Header = () => {
           </nav>
           {/* If logged in, change this button to sign out with a welcome */}
           {token 
-          ? <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
+          ? <>
+            <p>Hey {user.username}</p>
+            <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
+            </>
           : <button className='sign-in-button' onClick={openModal}>Sign In/Sign up!</button>
           }
         </div>

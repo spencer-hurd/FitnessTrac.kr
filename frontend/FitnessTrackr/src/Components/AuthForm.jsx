@@ -40,7 +40,7 @@ const AuthForm = ({closeModal}) => {
             //set localStorage on check box
             console.log(rememberMe)
             rememberMe ? localStorage.setItem('token', result.token) : null;
-            rememberMe ? localStorage.setItem('user', result.user) : null;
+            rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
             closeModal()
           } catch (err) {
             throw err
