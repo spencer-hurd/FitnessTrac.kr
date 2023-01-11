@@ -1,3 +1,39 @@
 .nav-link {
   margin: 1rem;
 }
+
+.nav-sign-in {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.sign-in-button {
+  margin-left: auto;
+}
+
+.AuthModal {
+  position: absolute;
+  top: 0px;
+  left: 66%;
+  right: 5px;
+  bottom: 0px;
+  padding: 1rem;
+  background-color: papayawhip;
+  color: black
+}
+
+.AuthOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, .3)
+}

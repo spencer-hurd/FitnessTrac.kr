@@ -1,8 +1,12 @@
-import { RoutineProvider, ActivitiesProvider } from './state/context'
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Modal from 'react-modal'
+import { RoutineProvider, ActivitiesProvider, UserProvider } from './state/context'
 import { Header, Home, Routines, Activities } from './Components'
 
 import './App.css'
+
+
 
 function App() {
 
@@ -22,18 +26,21 @@ function App() {
     //Activities - shows all activities - form for new activity if logged in
       //ActivitiesContainer - Think of a different way to format these when solo
       //CreateActivityForm
+
   return (
     <RoutineProvider>
-      <ActivitiesProvider>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/routines' element={<Routines />}/>
-          <Route path='/activities' element={<Activities />}/>
-        </Routes>
-      </div>
-      </ActivitiesProvider>
+      <UserProvider>
+        <ActivitiesProvider>
+          <div className="App">
+            <Header />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/routines' element={<Routines />}/>
+              <Route path='/activities' element={<Activities />}/>
+            </Routes>
+          </div>
+        </ActivitiesProvider>
+      </UserProvider>
     </RoutineProvider>
   )
 }

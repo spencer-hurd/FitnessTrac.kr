@@ -9,7 +9,8 @@ export const activitiesInitState = {
 }
 
 export const userInitState = {
-  user: {}
+  user: {},
+  token: ''
 }
 
 export const routineReducer = (draft, action) => {
@@ -40,7 +41,10 @@ export const userReducer = (draft, action) => {
     case 'set_user':
       draft.user = payload
       break
-      default:
-        throw new Error(`No case for type ${type} found in userReducer.`)
+    case 'set_token':
+      draft.token = payload
+      break
+    default:
+      throw new Error(`No case for type ${type} found in userReducer.`)
   }
 }

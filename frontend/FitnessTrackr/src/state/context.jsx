@@ -80,9 +80,18 @@ export const UserProvider = ({children}) => {
       payload: user
     })
   }
+
+  const setToken = (token) => {
+    dispatch({
+      type: 'set_token',
+      payload: token
+    })
+  }
   const value = {
     user: state.user,
-    setUser
+    token: state.token,
+    setUser,
+    setToken
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
