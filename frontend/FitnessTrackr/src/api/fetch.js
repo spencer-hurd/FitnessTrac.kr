@@ -12,8 +12,20 @@ export const getRoutines = async () => {
 }
 
 //for use at a user routines endpoint
-export const getUserRoutines = async (username) => {
-
+export const getUserRoutines = async (username, token) => {
+  try {
+    const response = await fetch(`${API_URL}/users/${username}/routines`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+			},
+		});
+		const routines = await response.json();
+		return routines;
+  } catch (error) {
+    throw error
+  }
 }
 
 export const getActivities = async () => {

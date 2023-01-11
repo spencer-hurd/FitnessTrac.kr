@@ -8,6 +8,7 @@ const AuthForm = ({closeModal}) => {
   const {setToken, setUser} = useUser()
   let usernameRef = useRef()
   let passwordRef = useRef()
+  let confirmRef = useRef()
 
   //login - [0], reg - [1]
   const authPageData = {
@@ -23,6 +24,10 @@ const AuthForm = ({closeModal}) => {
     isLogin ? setIsLogin(0) : setIsLogin(1)
   }
 
+  const comparePasswords = () => {
+    return confirmRef.current.value === passwordRef.current.value
+  }
+
   return (
     <div>
       <p>{authPageData.headerStr[isLogin]}</p>
@@ -34,14 +39,19 @@ const AuthForm = ({closeModal}) => {
 					e.preventDefault();
 
           try {
-            const result = await authPageData.authFuncs[isLogin](usernameRef.current.value, passwordRef.current.value);
-            setToken(result.token)
-            setUser(result.user)
-            //set localStorage on check box
-            console.log(rememberMe)
-            rememberMe ? localStorage.setItem('token', result.token) : null;
-            rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
-            closeModal()
+            if(!isLogin || comparePasswords()) {
+              const result = await authPageData.authFuncs[isLogin](usernameRef.current.value, passwordRef.current.value);
+              setToken(result.token)
+              setUser(result.user)
+              //set localStorage on check box
+              console.log(rememberMe)
+              rememberMe ? localStorage.setItem('token', result.token) : null;
+              rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
+              closeModal()
+            } else {
+              //make nicer
+              alert('Passwords must match')
+            }
           } catch (err) {
             throw err
           }
@@ -67,6 +77,18 @@ const AuthForm = ({closeModal}) => {
             placeholder='password'
             />
         </div>
+        <div>{ isLogin===1 && (
+          <>
+            <label htmlFor="password">Confirm Password: </label>
+            <input
+              type="password"
+              ref={confirmRef}
+              minLength={8}
+              required={true}
+              placeholder='password'
+              />
+          </>
+        )}</div>
         <input type='submit' value={authPageData.submitBtn[isLogin]} />
         <label htmlFor="remember">Remember Me</label>
         <input type="checkbox" onChange={() => { setRememberMe(!rememberMe) }}/>

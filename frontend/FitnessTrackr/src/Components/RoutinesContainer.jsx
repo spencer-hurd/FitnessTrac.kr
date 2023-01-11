@@ -1,15 +1,22 @@
 import {React, useEffect} from "react";
-import { useRoutines } from "../state/context";
-import { getRoutines } from "../api/fetch";
+import { useRoutines, useUser } from "../state/context";
+import { getRoutines, getUserRoutines } from "../api/fetch";
 import Routine from "./Routine";
 
-const RoutinesContainer = () => {
-  const {routines, populateRoutines} = useRoutines()
+const RoutinesContainer = ({username}) => {
+  const { routines, populateRoutines } = useRoutines()
+  const { token } = useUser()
 
+  //fetches either routines by user or all public
   useEffect(() => {
     const fetchRoutines = async () => {
-      const freshRoutines = await getRoutines()
-      populateRoutines(freshRoutines)
+      if (username) {
+        const userRoutines = await getUserRoutines(username, token)
+        populateRoutines(userRoutines)
+      } else {
+        const freshRoutines = await getRoutines()
+        populateRoutines(freshRoutines)
+      }
     }
     fetchRoutines()
   }, [])

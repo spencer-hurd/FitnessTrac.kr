@@ -39,13 +39,17 @@ const Header = () => {
           <nav className="navbar">
             <NavLink to='routines' className={'nav-link'}>routines</NavLink>
             <NavLink to='activities' className={'nav-link'}>activities</NavLink>
-            <NavLink to='#' className={'nav-link'}>profile</NavLink>
-          </nav>
+            {user 
+            ? <NavLink to='my-routines' className={'nav-link'}>my routines</NavLink>
+            : null
+            } </nav>
           {/* If logged in, change this button to sign out with a welcome */}
           {token 
           ? <>
-            <p>Hey {user.username}</p>
-            <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
+              <p>Hey {user.username}</p>
+              <NavLink to='/'>
+              <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
+              </NavLink>
             </>
           : <button className='sign-in-button' onClick={openModal}>Sign In/Sign up!</button>
           }

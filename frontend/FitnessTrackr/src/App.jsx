@@ -1,16 +1,14 @@
-import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Modal from 'react-modal'
 import { RoutineProvider, ActivitiesProvider, UserProvider } from './state/context'
 import { Header, Home, Routines, Activities } from './Components'
 
 import './App.css'
+import MyRoutines from './Components/MyRoutines'
+import UserRoutines from './Components/UserRoutines'
 
 
 
 function App() {
-
-  //Figure out setting user with localStorage and useEffect
 
   //ROUTES
     //Home - Routines but with an info header or something
@@ -21,7 +19,7 @@ function App() {
           //Activites - Maps over activites for that routine - allows for simple editing of routines
       //CreateRoutineForm - probably another modal
     //users -- points to either selected user's page or auth'd current user's profile
-      //userId - routines from -> /users/:username/routines -- visual distinction for private routines -- sugar on top :3
+      //username - routines from -> /users/:username/routines -- visual distinction for private routines -- sugar on top :3
         //Reuse RoutinesContainer etc.
     //Activities - shows all activities - form for new activity if logged in
       //ActivitiesContainer - Think of a different way to format these when solo
@@ -37,6 +35,8 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/routines' element={<Routines />}/>
               <Route path='/activities' element={<Activities />}/>
+              <Route path='/my-routines' element={<MyRoutines />}/>
+              <Route path='user/:username' element={<UserRoutines />}/>
             </Routes>
           </div>
         </ActivitiesProvider>
