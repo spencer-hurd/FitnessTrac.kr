@@ -57,6 +57,7 @@ const Header = () => {
       onRequestClose={closeModal}
       className='AuthModal'
       overlayClassName='AuthOverlay'
+      portalClassName="ModalPortal"
       contentLabel="Login Modal"
       >
         <AuthForm closeModal={closeModal}/>

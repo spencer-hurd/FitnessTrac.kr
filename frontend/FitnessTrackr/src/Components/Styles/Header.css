@@ -20,10 +20,10 @@
 
 .AuthModal {
   position: absolute;
-  top: 0px;
+  top: 5px;
   left: 66%;
   right: 5px;
-  bottom: 0px;
+  bottom: 5px;
   padding: 1rem;
   background-color: papayawhip;
   color: black
@@ -36,4 +36,12 @@
   right: 0;
   bottom: 0;
   background-color: rgba(30, 30, 30, .3)
+}
+
+/* Don't even ask about this nonsense. Happy tabbing */
+.ModalPortal {
+  z-index: 1;
+  position: absolute;
+  height: 1px;
+  width: 1px;
 }
