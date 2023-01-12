@@ -1,11 +1,13 @@
-import {React, useEffect} from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRoutines, useUser } from "../state/context";
 import { getRoutines, getUserRoutines } from "../api/fetch";
 import Routine from "./Routine";
 
 const RoutinesContainer = ({username}) => {
   const { routines, populateRoutines } = useRoutines()
-  const { token } = useUser()
+  const { token, modFlag } = useUser()
+  const [, updateState] = useState()
+  const renderRoutines = useCallback(() => updateState({}), [])
 
   //fetches either routines by user or all public
   useEffect(() => {
@@ -20,6 +22,11 @@ const RoutinesContainer = ({username}) => {
     }
     fetchRoutines()
   }, [])
+
+  //renders page on state.routines change
+  useEffect(() => {
+    renderRoutines 
+  }, [modFlag])
 
   return (
     routines.length > 0

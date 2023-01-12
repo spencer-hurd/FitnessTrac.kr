@@ -47,9 +47,17 @@ export const RoutineProvider = ({children}) => {
     })
   }
 
+  const addRoutine = (routine) => {
+    dispatch({
+      type: 'add_routine',
+      payload: routine
+    })
+  }
+
   const value = {
     routines: state.routines,
-    populateRoutines
+    populateRoutines,
+    addRoutine
   }
   return <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
 }
@@ -87,11 +95,19 @@ export const UserProvider = ({children}) => {
       payload: token
     })
   }
+
+  const incrementFlag = () => {
+    dispatch({
+      type: 'increment_flag'
+    })
+  }
+  
   const value = {
     user: state.user,
     token: state.token,
     setUser,
-    setToken
+    setToken,
+    incrementFlag
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

@@ -37,12 +37,12 @@ const Header = () => {
         </NavLink>
         <div className="nav-sign-in"> 
           <nav className="navbar">
-            <NavLink to='routines' className={'nav-link'}>routines</NavLink>
-            <NavLink to='activities' className={'nav-link'}>activities</NavLink>
             {user 
             ? <NavLink to='my-routines' className={'nav-link'}>my routines</NavLink>
             : null
             } </nav>
+            <NavLink to='routines' className={'nav-link'}>routines</NavLink>
+            <NavLink to='activities' className={'nav-link'}>activities</NavLink>
           {/* If logged in, change this button to sign out with a welcome */}
           {token 
           ? <>

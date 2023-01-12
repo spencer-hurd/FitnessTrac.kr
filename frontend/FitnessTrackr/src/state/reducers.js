@@ -10,7 +10,8 @@ export const activitiesInitState = {
 
 export const userInitState = {
   user: JSON.parse(window.localStorage.getItem('user')),
-  token: window.localStorage.getItem('token')
+  token: window.localStorage.getItem('token'),
+  modFlag: 0
 }
 
 export const routineReducer = (draft, action) => {
@@ -18,6 +19,9 @@ export const routineReducer = (draft, action) => {
   switch (type) {
     case 'populate_routines':
       draft.routines = payload
+      break
+    case 'add_routine':
+      draft.routines.push(payload)
       break
     default:
       throw new Error(`No case for type ${type} found in routineReducer.`)
@@ -43,6 +47,9 @@ export const userReducer = (draft, action) => {
       break
     case 'set_token':
       draft.token = payload
+      break
+    case 'increment_flag':
+      draft.modFlag++
       break
     default:
       throw new Error(`No case for type ${type} found in userReducer.`)

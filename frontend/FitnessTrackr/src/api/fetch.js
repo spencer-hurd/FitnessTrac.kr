@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:3003/api'
 
+//-------GET-------
+
 //for public routines
 export const getRoutines = async () => {
   try {
@@ -33,6 +35,25 @@ export const getActivities = async () => {
     const response = await fetch(`${API_URL}/activities`)
     const activities = await response.json()
     return activities    
+  } catch (error) {
+    throw error
+  }
+}
+
+//-------POST-------
+
+export const postRoutine = async (body, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routines`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    const result = await response.json()
+    return result
   } catch (error) {
     throw error
   }

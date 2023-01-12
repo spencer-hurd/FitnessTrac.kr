@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { registerUser, logInUser } from "../api/auth";
 import { useUser } from "../state/context";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = ({closeModal}) => {
   const [isLogin, setIsLogin] = useState(0)
@@ -9,6 +10,7 @@ const AuthForm = ({closeModal}) => {
   let usernameRef = useRef()
   let passwordRef = useRef()
   let confirmRef = useRef()
+  const navigate = useNavigate()
 
   //login - [0], reg - [1]
   const authPageData = {
@@ -48,6 +50,7 @@ const AuthForm = ({closeModal}) => {
               rememberMe ? localStorage.setItem('token', result.token) : null;
               rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
               closeModal()
+              navigate('/my-routines')
             } else {
               //make nicer
               alert('Passwords must match')

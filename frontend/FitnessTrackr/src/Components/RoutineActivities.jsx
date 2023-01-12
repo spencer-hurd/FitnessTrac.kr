@@ -6,7 +6,7 @@ const RoutineActivities = ({activities}) => {
     <div className="routine-activities">
       <h4>Activities: </h4>
       <ul>{
-        activities.map(activity => {
+        activities?.map(activity => {
           return (
           <li className="routine-activity" key={activity.id}>
             <Activity activity={activity}/>
