@@ -31,6 +31,4 @@ const validateToken = async (req) => {
   }
 };
 
-module.exports = validateToken;
-
 module.exports = validateToken

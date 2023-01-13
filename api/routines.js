@@ -86,16 +86,16 @@ router.patch("/:routineId", async (req, res, next) => {
         message: UnauthorizedUpdateError(isValidToken.username, _routine.name),
         name: "UnauthorizedUpdateError",
       });
-    }
-
-    const routineObj = {
-      id: routineId,
-      name: req.body.name,
-      goal: req.body.goal,
-      isPublic: req.body.isPublic,
-    };
-    const updatedRoutine = await updateRoutine(routineObj);
-    res.send(updatedRoutine);
+    } else {
+      const routineObj = {
+        id: routineId,
+        name: req.body.name,
+        goal: req.body.goal,
+        isPublic: req.body.isPublic,
+      };
+      const updatedRoutine = await updateRoutine(routineObj);
+      res.send(updatedRoutine);
+  }
   } catch (error) {
     next(error);
   }
@@ -128,16 +128,17 @@ router.delete("/:routineId", async (req, res, next) => {
 
     if (_routine.creatorId !== isValidToken.id) {
       res.status(403);
+      console.log(`-----------> _routine.creatorId ${_routine.creatorId} does not match isValidToken.id ${isValidToken.id}`)
       next({
         error: "UnauthorizedDeleteError",
         message: UnauthorizedDeleteError(isValidToken.username, _routine.name),
         name: "UnauthorizedDeleteError",
       });
+    } else {
+        const destroyedRoutine = await destroyRoutine(routineId);
+        destroyedRoutine.success = true;
+        res.send(destroyedRoutine);
     }
-
-    const destroyedRoutine = await destroyRoutine(routineId);
-    destroyedRoutine.success = true;
-    res.send(destroyedRoutine);
   } catch (error) {
     next(error);
   }
