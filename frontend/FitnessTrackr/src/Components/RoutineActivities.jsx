@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useImmer } from "use-immer";
 import Activity from "./Activity";
 
 const RoutineActivities = ({activities, isAuthor}) => {
   const [isEditable, setIsEditable] = useState(false)
   const [isCreatingRA, setIsCreatingRA] = useState(false)
+  const [routineActivityIds, setRoutineActivityIds] = useImmer([])
+
+  /* useEffect(() => {
+    const ids = [] 
+    activities.forEach(activity => {
+      console.log(activity)
+      ids.push(activity.id)
+    })
+    setRoutineActivityIds(ids)
+    console.log(routineActivityIds)
+  }, []) */
 
   return (
     <div className="routine-activities">
@@ -25,7 +37,7 @@ const RoutineActivities = ({activities, isAuthor}) => {
       }
       {
       isCreatingRA
-      ? <Activity isCreatingRA={isCreatingRA}/>
+      ? <Activity isCreatingRA={isCreatingRA} routineActivities={activities}/>
       : null
       }
       </ul>{

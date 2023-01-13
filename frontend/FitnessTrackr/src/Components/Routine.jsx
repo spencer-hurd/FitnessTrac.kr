@@ -61,45 +61,47 @@ const Routine = ({routineData}) => {
   return (
     <>
       <form className="routine" ref={formRef} onSubmit={(e) => {handleRoutineEdit(e)}}>
-        <div>
-          <label htmlFor="routine-name">Routine: </label>
-          <input type='text' ref={nameRef} defaultValue={routineData.name} disabled={!isEditable} />
-        </div> 
-        <div>
-          <label htmlFor="creator">Creator: </label>
-          <input type='text' defaultValue={routineData.creatorName} disabled={true} />
+        <div className="routine-form-inputs">
+          <div>
+            <label htmlFor="routine-name">Routine: </label>
+            <input type='text' ref={nameRef} defaultValue={routineData.name} disabled={!isEditable} />
+          </div>
+          <div>
+            <label htmlFor="creator">Creator: </label>
+            <input type='text' defaultValue={routineData.creatorName} disabled={true} />
+          </div>
+          <div>
+            <label htmlFor="goal">Goal: </label>
+            <input type='text' ref={goalRef} defaultValue={routineData.goal} disabled={!isEditable} />
+          </div>
+          <div>{
+            isEditable
+            ?<>
+              <label htmlFor="routine-is-public">Make public? </label>
+              <input type="checkbox" checked={isPublic} onChange={() => {setIsPublic(!isPublic)}}/>
+            </>
+            : null
+          }</div>
         </div>
-        <div>
-          <label htmlFor="goal">Goal: </label>
-          <input type='text' ref={goalRef} defaultValue={routineData.goal} disabled={!isEditable} />
-        </div>
-        <div>{
-          isEditable
-          ?<>
-            <label htmlFor="routine-is-public">Make public? </label>
-            <input type="checkbox" checked={isPublic} onChange={() => {setIsPublic(!isPublic)}}/>
-          </>
-          : null
-        }</div>
-        <RoutineActivities activities={routineData.activities} isAuthor={isAuthor}/>
       {
-      isAuthor
-      ? <div className="routine-buttons">{
-        !isEditable
-        ? <button onClick={ () => {setIsEditable(true)} }>Edit Routine</button>
-        : <div className="edit-buttons">
-            <div className="non-danger-buttons">
-              <button type='button' onClick={ (e) => {setIsEditable(false); formRef.current.reset()}}>Cancel</button>
-              <button>Save</button> {/* Send and return changes */}
-            </div>
-            <div className="danger-button">
-              <button type='button' onClick={handleDelete}>Delete Routine</button>
-            </div>
+        isAuthor
+        ? <div className="routine-buttons">{
+          !isEditable
+          ? <button onClick={ () => {setIsEditable(true)} }>Edit Routine</button>
+          : <div className="edit-buttons">
+              <div className="non-danger-buttons">
+                <button type='button' onClick={ (e) => {setIsEditable(false); formRef.current.reset()}}>Cancel</button>
+                <button>Save</button> {/* Send and return changes */}
+              </div>
+              <div className="danger-button">
+                <button type='button' onClick={handleDelete}>Delete Routine</button>
+              </div>
           </div>
         }</div>
-      : null
+        : null
       }
       </form>
+      <RoutineActivities activities={routineData.activities} isAuthor={isAuthor}/>
     </>
   )
 }

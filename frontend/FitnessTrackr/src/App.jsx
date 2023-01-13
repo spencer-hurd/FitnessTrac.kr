@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom'
-import { RoutineProvider, ActivitiesProvider, UserProvider } from './state/context'
+import { RoutineProvider, ActivitiesProvider, UserProvider, useActivities } from './state/context'
 import { Header, Home, Routines, Activities } from './Components'
 
 import './App.css'
 import MyRoutines from './Components/MyRoutines'
 import UserRoutines from './Components/UserRoutines'
+import { useEffect } from 'react'
 
 
 

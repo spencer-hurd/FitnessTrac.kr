@@ -1,3 +1,5 @@
+import { getActivities } from "../api/fetch"
+
 //non user state
 export const routineInitState = {
   routines: [],

@@ -1,15 +1,12 @@
 import React from "react";
 import ActivityForm from "./ActivityForm";
 
-const Activity = ({activity, isCreatingRA}) => {
-  if (activity.routineActivityId) {return (
+const Activity = ({activity, isCreatingRA, routineActivities}) => {
+  if (activity?.routineActivityId || isCreatingRA) {return (
     <div className='activity'>
-      <ActivityForm activity={activity} isCreatingRA={isCreatingRA}/>
+      <ActivityForm activity={activity} isCreatingRA={isCreatingRA} routineActivities={routineActivities}/>
     </div>
   )}
-  
-  
-  
   
   else{return (
     <div className='activity'>
