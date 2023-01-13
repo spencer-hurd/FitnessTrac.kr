@@ -18,13 +18,10 @@ const RoutineForm = ({closeModal}) => {
     }
 
     try {
+      //not sure I love this solution. I'd prefer the DB to just return the creatorName
       let newRoutine = await postRoutine(body, token)
-      newRoutine = {
-        ...newRoutine,
-        creatorName: user.username
-      }
+      newRoutine.creatorName = user.username
       addRoutine(newRoutine)
-      console.dir(newRoutine)
       closeModal()
     } catch (error) {
       throw error

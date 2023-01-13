@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import { useUser, useRoutines } from "../state/context";
 import RoutineActivities from "./RoutineActivities";
-import { deleteRoutine } from "../api/fetch";
+import { deleteRoutine, modifyRoutine } from "../api/fetch";
 
 import './Styles/Routine.css'
 
 const Routine = ({routineData}) => {
-  const [isEditable, setIsEditable] = useState(false)
   const { user, token } = useUser()
   const { removeRoutine } = useRoutines()
+  const [isEditable, setIsEditable] = useState(false)
+  
+  //routineRefs
+  const formRef = useRef()
+  const nameRef = useRef(routineData.name)
+  const goalRef = useRef(routineData.goal)
+  const [isPublic, setIsPublic] = useState(routineData.isPublic)
+
   //set default value then save something in state
   //add delete confirmation
 
@@ -23,39 +30,69 @@ const Routine = ({routineData}) => {
     setIsEditable(false)
   }
 
+  async function handleRoutineEdit(e) {
+    //It seems the API written for the tests requires us to send all the routine fields, this isn't my preference so it may change
+    e.preventDefault()
+    const patchBody = {
+      name: routineData.name,
+      goal: routineData.goal,
+      isPublic: routineData.isPublic
+    }
+    if (nameRef.current.value !== routineData.name) patchBody.name = nameRef.current.value
+    if (goalRef.current.value !== routineData.goal) patchBody.goal = goalRef.current.value
+    if (isPublic !== routineData.isPublic) patchBody.isPublic = isPublic
+    
+    try {
+      const patchedRoutine = await modifyRoutine(patchBody, routineData.id, token)
+      console.dir(patchedRoutine)
+      setIsEditable(false)
+    } catch (err) {
+      console.error('Error updating routine: ', err)
+    }
+  }
+
   return (
     <>
-      <div className="routine">
+      <form className="routine" ref={formRef} onSubmit={(e) => {handleRoutineEdit(e)}}>
         <div>
           <label htmlFor="routine-name">Routine: </label>
-          <input type='text' value={routineData.name} disabled={!isEditable} />
-        </div>
+          <input type='text' ref={nameRef} defaultValue={routineData.name} disabled={!isEditable} />
+        </div> 
         <div>
           <label htmlFor="creator">Creator: </label>
-          <input type='text' value={routineData.creatorName} disabled={true} />
+          <input type='text' defaultValue={routineData.creatorName} disabled={true} />
         </div>
         <div>
           <label htmlFor="goal">Goal: </label>
-          <input type='text' value={routineData.goal} disabled={!isEditable} />
+          <input type='text' ref={goalRef} defaultValue={routineData.goal} disabled={!isEditable} />
         </div>
+        <div>{
+          isEditable
+          ?<>
+            <label htmlFor="routine-is-public">Make public? </label>
+            <input type="checkbox" checked={isPublic} onChange={() => {setIsPublic(!isPublic)}}/>
+          </>
+          : null
+        }</div>
         <RoutineActivities activities={routineData.activities}/>
-      </div>{
+      {
       user?.username === routineData.creatorName
       ? <div className="routine-buttons">{
         !isEditable
         ? <button onClick={ () => {setIsEditable(true)} }>Edit Routine</button>
         : <div className="edit-buttons">
             <div className="non-danger-buttons">
-              <button onClick={ () => {setIsEditable(false) /* Also revert values to default */}}>Cancel</button>
+              <button type='button' onClick={ (e) => {setIsEditable(false); formRef.current.reset()}}>Cancel</button>
               <button>Save</button> {/* Send and return changes */}
             </div>
             <div className="danger-button">
-              <button onClick={handleDelete}>Delete Routine</button>
+              <button type='button' onClick={handleDelete}>Delete Routine</button>
             </div>
           </div>
         }</div>
       : null
       }
+      </form>
     </>
   )
 }

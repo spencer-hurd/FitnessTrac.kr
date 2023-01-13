@@ -23,8 +23,11 @@ export const routineReducer = (draft, action) => {
     case 'add_routine':
       draft.routines.push(payload)
       break
-    case 'remove_routine':
+    /* case 'update_routine':
       // payload === routine.id
+      oldRoutineId = draft.routines.findIndex(routine => routine.id === payload)
+      draft.routines[oldRoutineId] = payload. */
+    case 'remove_routine':
       draft.routines = draft.routines.filter(routine => routine.id !== payload)
       break
     default:

@@ -1,4 +1,4 @@
-.routine input {
+.routine input[type="text"] {
   appearance: none;
   background: none;
   color: white;
@@ -10,7 +10,7 @@
   border: none;
 }
 
-.routine input:enabled {
+.routine input:enabled[type="text"] {
   border: none;
   border-bottom: 1px solid black;
 }

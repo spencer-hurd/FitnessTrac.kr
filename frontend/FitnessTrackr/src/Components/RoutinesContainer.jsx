@@ -6,8 +6,6 @@ import Routine from "./Routine";
 const RoutinesContainer = ({username}) => {
   const { routines, populateRoutines } = useRoutines()
   const { token, modFlag } = useUser()
-  const [, updateState] = useState()
-  const renderRoutines = useCallback(() => updateState({}), [])
 
   //fetches either routines by user or all public
   useEffect(() => {
