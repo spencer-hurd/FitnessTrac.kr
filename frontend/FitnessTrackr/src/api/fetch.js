@@ -58,3 +58,21 @@ export const postRoutine = async (body, token) => {
     throw error
   }
 }
+
+//-------DELETE-------
+
+export const deleteRoutine = async (routineId, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routines/${routineId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+      }
+    })
+    const result = await response.json()
+    return result
+  } catch (error) {
+    throw error
+  }
+}

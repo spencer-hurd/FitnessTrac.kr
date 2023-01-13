@@ -24,9 +24,10 @@ const RoutinesContainer = ({username}) => {
   }, [])
 
   //renders page on state.routines change
-  useEffect(() => {
+  //no need!!
+  /* useEffect(() => {
     renderRoutines 
-  }, [modFlag])
+  }, [modFlag]) */
 
   return (
     routines.length > 0

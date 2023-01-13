@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom"
-import { getUserRoutines } from "../api/fetch"
 import RoutinesContainer from "./RoutinesContainer"
 
 const UserRoutines = ({currentUsername}) => {

@@ -23,6 +23,10 @@ export const routineReducer = (draft, action) => {
     case 'add_routine':
       draft.routines.push(payload)
       break
+    case 'remove_routine':
+      // payload === routine.id
+      draft.routines = draft.routines.filter(routine => routine.id !== payload)
+      break
     default:
       throw new Error(`No case for type ${type} found in routineReducer.`)
   }

@@ -54,10 +54,18 @@ export const RoutineProvider = ({children}) => {
     })
   }
 
+  const removeRoutine = (routineId) => {
+    dispatch({
+      type: 'remove_routine',
+      payload: routineId
+    })
+  }
+
   const value = {
     routines: state.routines,
-    populateRoutines,
-    addRoutine
+    populateRoutines, 
+    addRoutine,
+    removeRoutine
   }
   return <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
 }
@@ -101,7 +109,7 @@ export const UserProvider = ({children}) => {
       type: 'increment_flag'
     })
   }
-  
+
   const value = {
     user: state.user,
     token: state.token,

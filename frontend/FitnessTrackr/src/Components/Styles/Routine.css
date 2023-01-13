@@ -1,0 +1,25 @@
+.routine input {
+  appearance: none;
+  background: none;
+  color: white;
+  font-size: 18px;
+  width: 80%;
+}
+
+.routine input:disabled {
+  border: none;
+}
+
+.routine input:enabled {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-buttons button {
+  margin-right: 1rem;
+}
