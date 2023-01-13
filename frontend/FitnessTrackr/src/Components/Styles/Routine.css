@@ -15,6 +15,13 @@
   font-size: 18px;
 }
 
+/* .routine input[type="number"] {
+  appearance: none;
+  background: none;
+  color: white;
+  font-size: 18px;
+} */
+
 .routine input:disabled {
   border: none;
 }

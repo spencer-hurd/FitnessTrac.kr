@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import Activity from "./Activity";
 
-const RoutineActivities = ({activities, isAuthor}) => {
+const RoutineActivities = ({activities, isAuthor, routineId}) => {
   const [isEditable, setIsEditable] = useState(false)
   const [isCreatingRA, setIsCreatingRA] = useState(false)
   const [routineActivityIds, setRoutineActivityIds] = useImmer([])
@@ -30,14 +30,14 @@ const RoutineActivities = ({activities, isAuthor}) => {
         activities?.map(activity => {
           return (
           <li className="routine-activity" key={activity.id}>
-            <Activity activity={activity}/>
+            <Activity activity={activity} isEditable={isEditable} setIsEditable={setIsEditable}/>
           </li>
           )
         })
       }
       {
       isCreatingRA
-      ? <Activity isCreatingRA={isCreatingRA} routineActivities={activities}/>
+      ? <Activity isCreatingRA={isCreatingRA} setIsCreatingRA={setIsCreatingRA} routineActivities={activities} routineId={routineId}/>
       : null
       }
       </ul>{

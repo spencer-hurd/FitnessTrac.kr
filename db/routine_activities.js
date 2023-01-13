@@ -6,6 +6,7 @@ async function addActivityToRoutine({
   count,
   duration,
 }) {
+
   try {
     const {
       rows: [routine_activity],
@@ -23,6 +24,7 @@ async function addActivityToRoutine({
     return routine_activity;
   } catch (error) {
     console.error(`Can't add activity: ${activityId} to routine: ${routineId}`);
+    throw error
   }
 }
 

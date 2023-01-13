@@ -59,6 +59,23 @@ export const postRoutine = async (body, token) => {
   }
 }
 
+export const postActivityToRoutine = async (body, routineId, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routines/${routineId}/activities`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    const result = await response.json()
+    return result
+  } catch (error) {
+    throw error
+  }
+}
+
 //-------PATCH--------
 
 export const modifyRoutine = async (body, routineId, token) => {

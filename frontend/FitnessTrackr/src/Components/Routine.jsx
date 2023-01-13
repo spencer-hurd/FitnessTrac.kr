@@ -101,7 +101,7 @@ const Routine = ({routineData}) => {
         : null
       }
       </form>
-      <RoutineActivities activities={routineData.activities} isAuthor={isAuthor}/>
+      <RoutineActivities activities={routineData.activities} isAuthor={isAuthor} routineId={routineData.id}/>
     </>
   )
 }

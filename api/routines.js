@@ -190,11 +190,10 @@ router.post("/:routineId/activities", async (req, res, next) => {
 
     //Check if the id pair exists
     const _routineActivities = await getRoutineActivitiesByRoutine(_routine);
-
     let routineActivityExists = false;
 
     _routineActivities.forEach((rA) => {
-      if ((rA.activityId = req.body.activityId)) {
+      if ((rA.activityId === req.body.activityId)) {
         routineActivityExists = true;
         return;
       }
@@ -206,16 +205,20 @@ router.post("/:routineId/activities", async (req, res, next) => {
         message: DuplicateRoutineActivityError(routineId, req.body.activityId),
         name: "DuplicateRoutineActivityError",
       });
+    } else {
+      const newRAObj = {
+        routineId,
+        activityId: req.body.activityId,
+        count: req.body.count,
+        duration: req.body.duration,
+      };
+      const newRoutineActivity = await addActivityToRoutine(newRAObj);
+      if (newRoutineActivity.error) {
+        throw newRoutineActivity.error
+      }
+      res.send(newRoutineActivity);
     }
 
-    const newRAObj = {
-      routineId,
-      activityId: req.body.activityId,
-      count: req.body.count,
-      duration: req.body.duration,
-    };
-    const newRoutineActivity = await addActivityToRoutine(newRAObj);
-    res.send(newRoutineActivity);
   } catch (error) {
     next(error);
   }

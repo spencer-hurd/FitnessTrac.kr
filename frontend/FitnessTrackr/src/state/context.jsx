@@ -54,6 +54,16 @@ export const RoutineProvider = ({children}) => {
     })
   }
 
+  const addActivityToRoutine = (routineId, activity) => {
+    dispatch({
+      type: 'add_activity',
+      payload: {
+        routineId: routineId,
+        activity: activity
+      }
+    })
+  }
+
   const removeRoutine = (routineId) => {
     dispatch({
       type: 'remove_routine',
@@ -65,7 +75,8 @@ export const RoutineProvider = ({children}) => {
     routines: state.routines,
     populateRoutines, 
     addRoutine,
-    removeRoutine
+    removeRoutine,
+    addActivityToRoutine
   }
   return <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
 }
