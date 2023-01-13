@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useUser, useRoutines } from "../state/context";
 import RoutineActivities from "./RoutineActivities";
 import { deleteRoutine, modifyRoutine } from "../api/fetch";
@@ -9,6 +9,7 @@ const Routine = ({routineData}) => {
   const { user, token } = useUser()
   const { removeRoutine } = useRoutines()
   const [isEditable, setIsEditable] = useState(false)
+  const [isAuthor, setIsAuthor] = useState(false)
   
   //routineRefs
   const formRef = useRef()
@@ -18,6 +19,12 @@ const Routine = ({routineData}) => {
 
   //set default value then save something in state
   //add delete confirmation
+
+  useEffect(() => {
+    if (user?.username === routineData.creatorName) {
+      setIsAuthor(true)
+    }
+  }, [user])
 
   async function handleDelete() {
     const deadRoutine = await deleteRoutine(routineData.id, token)
@@ -74,9 +81,9 @@ const Routine = ({routineData}) => {
           </>
           : null
         }</div>
-        <RoutineActivities activities={routineData.activities}/>
+        <RoutineActivities activities={routineData.activities} isAuthor={isAuthor}/>
       {
-      user?.username === routineData.creatorName
+      isAuthor
       ? <div className="routine-buttons">{
         !isEditable
         ? <button onClick={ () => {setIsEditable(true)} }>Edit Routine</button>

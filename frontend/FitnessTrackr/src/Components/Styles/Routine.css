@@ -23,3 +23,17 @@
 .edit-buttons button {
   margin-right: 1rem;
 }
+
+.routine-activities button {
+  padding-top: .2rem;
+  padding-bottom: .2rem;
+}
+
+.ra-header {
+  display: flex;
+}
+
+.ra-header button {
+  padding: .2rem;
+  height: 2rem
+}

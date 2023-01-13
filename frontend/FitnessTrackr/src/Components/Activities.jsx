@@ -16,6 +16,7 @@ const Activities = () => {
     fetchActivities()
   }, [])
 
+  //Add modal to create activity
   return (
     activities.length > 0
     ? <div className="activities-container">{
