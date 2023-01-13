@@ -7,6 +7,7 @@ const {
   destroyRoutine,
   addActivityToRoutine,
   getRoutineActivitiesByRoutine,
+  getRoutineByName,
 } = require("../db");
 const {
   UnauthorizedError,
@@ -39,6 +40,16 @@ router.post("/", async (req, res, next) => {
         message: UnauthorizedError(),
         name: "UnauthorizedError",
       });
+    }
+
+    const _routine = await getRoutineByName(name)
+
+    if (_routine) {
+      next({
+        error: 'DuplicateRoutineError',
+        message: `A routine with name ${name} already exists.`,
+        name: 'DuplicateRoutineError'
+      })
     }
 
     const routineObj = {

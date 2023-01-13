@@ -16,7 +16,7 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
     );
     return routine;
   } catch (error) {
-    console.error(`Can not create routine named: ${name}`);
+    console.error(`Can not create routine named: ${name}`, error);
   }
 }
 
@@ -63,6 +63,19 @@ async function getRoutineById(id) {
     return routine;
   } catch (error) {
     throw error;
+  }
+}
+
+async function getRoutineByName(name) {
+  try {
+    const { rows: [routine] } = await client.query(`
+      SELECT * FROM routines
+      WHERE name = $1
+    `, [name])
+
+    return routine
+  } catch (error) {
+    throw error
   }
 }
 
@@ -204,6 +217,7 @@ async function destroyRoutine(id) {
 
 module.exports = {
   getRoutineById,
+  getRoutineByName,
   getRoutinesWithoutActivities,
   getAllRoutines,
   getAllPublicRoutines,
