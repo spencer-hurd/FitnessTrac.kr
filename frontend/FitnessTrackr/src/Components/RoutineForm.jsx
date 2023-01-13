@@ -3,7 +3,7 @@ import { postRoutine } from "../api/fetch"
 import { useUser, useRoutines } from "../state/context"
 
 const RoutineForm = ({closeModal}) => {
-  const { token } = useUser()
+  const { user, token } = useUser()
   const { addRoutine } = useRoutines()
   const [isPublic, setIsPublic] = useState(false)
   const routineNameRef = useRef()
@@ -18,7 +18,11 @@ const RoutineForm = ({closeModal}) => {
     }
 
     try {
-      const newRoutine = await postRoutine(body, token)
+      let newRoutine = await postRoutine(body, token)
+      newRoutine = {
+        ...newRoutine,
+        creatorName: user.username
+      }
       addRoutine(newRoutine)
       console.dir(newRoutine)
       closeModal()

@@ -32,11 +32,11 @@ const Routine = ({routineData}) => {
         </div>
         <div>
           <label htmlFor="creator">Creator: </label>
-          <input input type='text' value={routineData.creatorName} disabled={true} />
+          <input type='text' value={routineData.creatorName} disabled={true} />
         </div>
         <div>
           <label htmlFor="goal">Goal: </label>
-          <input input type='text' value={routineData.goal} disabled={!isEditable} />
+          <input type='text' value={routineData.goal} disabled={!isEditable} />
         </div>
         <RoutineActivities activities={routineData.activities}/>
       </div>{
