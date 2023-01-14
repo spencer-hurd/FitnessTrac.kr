@@ -95,11 +95,44 @@ export const modifyRoutine = async (body, routineId, token) => {
   }
 }
 
+export const modifyRoutineActivities = async (body, routineActivityId, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routine_activities/${routineActivityId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    })
+    const result = await response.json()
+    return result
+  } catch (error) {
+    throw error
+  }
+}
+
 //-------DELETE-------
 
 export const deleteRoutine = async (routineId, token) => {
   try {
     const response = await fetch(`${API_URL}/routines/${routineId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+      }
+    })
+    const result = await response.json()
+    return result
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deleteRoutineActivity = async (routineActivityId, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routine_activities/${routineActivityId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

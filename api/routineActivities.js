@@ -98,7 +98,7 @@ router.delete("/:routineActivityId", async (req, res, next) => {
     const deletedRoutineActivity = await destroyRoutineActivity(
       routineActivityId
     );
-    deletedRoutineActivity.sucess = true;
+    deletedRoutineActivity.success = true;
     res.send(deletedRoutineActivity);
   } catch (error) {
     next(error);

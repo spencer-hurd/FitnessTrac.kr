@@ -22,7 +22,9 @@ const RoutineActivities = ({activities, isAuthor, routineId}) => {
       <div className="ra-header">
         <h4>Activities: </h4>
         {isAuthor
-        ? <button onClick={() => {setIsEditable(!isEditable)}}>Edit Activities</button>
+        ? isEditable 
+          ? <button onClick={() => {setIsEditable(!isEditable); setIsCreatingRA(false)}}>Close Edit</button>
+          : <button onClick={() => {setIsEditable(!isEditable)}}>Edit Activities</button>
         : null
         }
       </div>
@@ -30,19 +32,21 @@ const RoutineActivities = ({activities, isAuthor, routineId}) => {
         activities?.map(activity => {
           return (
           <li className="routine-activity" key={activity.id}>
-            <Activity activity={activity} isEditable={isEditable} setIsEditable={setIsEditable}/>
+            <Activity activity={activity} isEditable={isEditable} setIsEditable={setIsEditable} routineId={routineId}/>
           </li>
           )
         })
       }
-      {
+      { //closing edit activities should also remove unadded activity
       isCreatingRA
       ? <Activity isCreatingRA={isCreatingRA} setIsCreatingRA={setIsCreatingRA} routineActivities={activities} routineId={routineId}/>
       : null
       }
       </ul>{
       isEditable
-      ? <button onClick={() => setIsCreatingRA(true)} className="add-activity-to-routine">&#8862;</button>
+      ? isCreatingRA 
+        ? <button onClick={() => setIsCreatingRA(false)}>Close me</button>  
+        : <button onClick={() => setIsCreatingRA(true)} className="add-activity-to-routine">&#8862;</button>
       : null
       }
     </div>

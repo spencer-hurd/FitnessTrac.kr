@@ -25,12 +25,16 @@ export const routineReducer = (draft, action) => {
     case 'add_routine':
       draft.routines.push(payload)
       break
+    case 'remove_routine':
+      draft.routines = draft.routines.filter(routine => routine.id !== payload)
+      break
     case 'add_activity':
       const routine = draft.routines.find(routine => routine.id === payload.routineId)
       routine.activities.push(payload.activity)
       break
-    case 'remove_routine':
-      draft.routines = draft.routines.filter(routine => routine.id !== payload)
+    case 'remove_activity':
+      const otherRoutine = draft.routines.find(routine => routine.id === payload.routineId)
+      otherRoutine.activities = otherRoutine.activities.filter(activity => activity.id !== payload.activityId)
       break
     default:
       throw new Error(`No case for type ${type} found in routineReducer.`)

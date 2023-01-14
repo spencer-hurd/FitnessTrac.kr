@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { useImmer } from "use-immer"
-import { getActivities, postActivityToRoutine } from "../api/fetch"
+import { deleteRoutineActivity, getActivities, modifyRoutineActivities, postActivityToRoutine } from "../api/fetch"
 import { useActivities, useRoutines, useUser } from "../state/context"
 
 const blankInitData = {
@@ -10,12 +10,12 @@ const blankInitData = {
   duration: ''
 }
 
-const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isCreatingActivity, isEditable, setIsEditable, routineActivities, routineId}) => {
+const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, routineActivities, routineId}) => {
   // activity cases: routine-display, activities page-display, edit on routine, edit alone, add on routine (pull from available activities), add to activities
   const [areFieldsDisabled, setAreFieldsDisabled] = useState(true)
   const [activityData, setActivityData] = useImmer(blankInitData)
   const { token } = useUser()
-  const { addActivityToRoutine } = useRoutines()
+  const { addActivityToRoutine, removeActivityFromRoutine } = useRoutines()
   const { activities, populateActivities } = useActivities()
   const countRef = useRef()
   const durationRef = useRef()
@@ -37,20 +37,21 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isCreatingActivi
     }
   }, [])
   
-  //TODO: filter activities by routine - come back later
+  //filter activities by routine
   useEffect(() => {
     const fetchActivities = async () => {
       const freshActivities = await getActivities()
       if (!routineActivities) {
         populateActivities(freshActivities)
       } else {
-        console.log(routineActivities)
+        const raIds = routineActivities.map(ra => {
+          return ra.id
+        })
         const filteredActivities = freshActivities.filter(activity => {
-          return !routineActivities.includes(activity.id)
+          return !raIds.includes(activity.id)
         })
         populateActivities(filteredActivities)
       }
-      //console.log('ids: ', routineActivityIds, ' freshActivities: ', freshActivities, ' filteredActivities: ', filteredActivities)
     }
     fetchActivities()
   }, [])
@@ -67,42 +68,62 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isCreatingActivi
     setActivityData(activity)
   }
 
-  async function handleFormSubmit (e) {
+  async function handleFormSubmit(e) {
     //conditional for adding activity or modifying one
     e.preventDefault()
 
-    if (isCreatingRA) {
-      //add activity to routine
-      //ONLY WRITE INTEGERS FOR COUNT AND DURATION
-      const addBody = {
-        activityId: activityData.id,
-        count: countRef.current.value,
-        duration: durationRef.current.value
+    //add activity to routine
+    //ONLY WRITE INTEGERS FOR COUNT AND DURATION
+    const addBody = {
+      activityId: activityData.id,
+      count: countRef.current.value,
+      duration: durationRef.current.value
+    }
+    console.log(addBody)
+    try {
+      if (!addBody.activityId){
+        alert('You must select a activity to add!')
+        throw new Error('You must select a activity to add!')
       }
-      console.log(addBody)
-      try {
-        if (!addBody.activityId){
-          alert('You must select a activity to add!')
-          throw new Error('You must select a activity to add!')
-        }
-        const addedActivity = await postActivityToRoutine(addBody, routineId, token)
+      const addedActivity = await postActivityToRoutine(addBody, routineId, token)
 
-        //I know this is evil please ignore. I'm over react.
-        const raID = addedActivity.id
-        addedActivity.id = addedActivity.activityId
-        delete addedActivity.activityId
-        addedActivity.routineActivityId = raID
-        addedActivity.name = activityData.name
-        addedActivity.description = activityData.description
+      //I know this is evil please ignore. I'm over react.
+      const raID = addedActivity.id
+      addedActivity.id = addedActivity.activityId
+      delete addedActivity.activityId
+      addedActivity.routineActivityId = raID
+      addedActivity.name = activityData.name
+      addedActivity.description = activityData.description
 
-        addActivityToRoutine(routineId, addedActivity)
-        setIsCreatingRA(false)
-      } catch (err) {
-        throw err
-      }
+      addActivityToRoutine(routineId, addedActivity)
+      setIsCreatingRA(false)
+    } catch (err) {
+      throw err
     }
 
-    
+  }
+
+  async function handleUpdateActivity() {
+    const modBody = {
+      count: countRef.current.value,
+      duration: durationRef.current.value
+    }
+    try {
+      await modifyRoutineActivities(modBody, activity.routineActivityId, token)
+      alert(`Changes saved to activity`)
+    } catch (err) {
+      throw err
+    }
+  }
+
+  async function handleDeleteActivity() {
+    try {
+      removeActivityFromRoutine(routineId, activity.id)
+      const deletedAct = await deleteRoutineActivity(activity.routineActivityId, token)
+      console.log(deletedAct)
+    } catch (err) {
+      throw err
+    }
   }
 
   return (
@@ -128,16 +149,22 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isCreatingActivi
       </div>
       <div>
         <label htmlFor="activity-count">Reps: </label>
-        <input type="number" ref={countRef} defaultValue={activityData.count} disabled={areFieldsDisabled}/>
+        <input type="number" ref={countRef} defaultValue={activityData.count} disabled={areFieldsDisabled} required/>
       </div>
       <div>
         <label htmlFor="activity-duration">Sets/duration: </label>
-        <input type="number" ref={durationRef} defaultValue={activityData.duration} disabled={areFieldsDisabled}/>
+        <input type="number" ref={durationRef} defaultValue={activityData.duration} disabled={areFieldsDisabled} required/>
       </div>
       { isCreatingRA
         ? <button>Add activity</button>
         : null
       }
+      { isEditable
+      ? <div>
+          <button type="button" onClick={handleUpdateActivity}>Save</button>
+          <button type="button" onClick={handleDeleteActivity}>Delete</button>
+        </div>
+      : null}
     </form> 
   )
 }
