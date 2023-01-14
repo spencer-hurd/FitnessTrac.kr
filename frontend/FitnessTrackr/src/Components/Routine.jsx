@@ -4,6 +4,7 @@ import RoutineActivities from "./RoutineActivities";
 import { deleteRoutine, modifyRoutine } from "../api/fetch";
 
 import './Styles/Routine.css'
+import { NavLink } from "react-router-dom";
 
 const Routine = ({routineData}) => {
   const { user, token } = useUser()
@@ -63,21 +64,22 @@ const Routine = ({routineData}) => {
       <form className="routine" ref={formRef} onSubmit={(e) => {handleRoutineEdit(e)}}>
         <div className="routine-form-inputs">
           <div>
-            <label htmlFor="routine-name">Routine: </label>
+            <label className={'routine-field'}htmlFor="routine-name">Routine: </label>
             <input type='text' ref={nameRef} defaultValue={routineData.name} disabled={!isEditable} />
           </div>
           <div>
-            <label htmlFor="creator">Creator: </label>
-            <input type='text' defaultValue={routineData.creatorName} disabled={true} />
+            <label className={'routine-field'}htmlFor="creator">Creator: </label>
+            <NavLink to={`/user/${routineData.creatorName}`}>{routineData.creatorName}</NavLink>
           </div>
+          <b/>
           <div>
-            <label htmlFor="goal">Goal: </label>
+            <label className={'routine-field'}htmlFor="goal">Goal: </label>
             <input type='text' ref={goalRef} defaultValue={routineData.goal} disabled={!isEditable} />
           </div>
           <div>{
             isEditable
             ?<>
-              <label htmlFor="routine-is-public">Make public? </label>
+              <label className={'routine-field'}htmlFor="routine-is-public">Make public? </label>
               <input type="checkbox" checked={isPublic} onChange={() => {setIsPublic(!isPublic)}}/>
             </>
             : null

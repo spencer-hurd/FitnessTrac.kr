@@ -1,5 +1,6 @@
 import React from "react";
 import Routines from "./Routines";
+import './Styles/Home.css'
 
 const Home = () => {
   //Floating splash???

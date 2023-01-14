@@ -1,19 +1,23 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRoutines, useUser } from "../state/context";
-import { getRoutines, getUserRoutines } from "../api/fetch";
+import { getRoutines, getUserRoutines, getRoutinesByActivity } from "../api/fetch";
 import Routine from "./Routine";
 
-const RoutinesContainer = ({username}) => {
+const RoutinesContainer = ({username, activityId}) => {
   const { routines, populateRoutines } = useRoutines()
   const { token, modFlag } = useUser()
-
+  console.log('ACTIVITY ID: ', activityId)
   //fetches either routines by user or all public
   useEffect(() => {
     const fetchRoutines = async () => {
       if (username) {
         const userRoutines = await getUserRoutines(username, token)
         populateRoutines(userRoutines)
-      } else {
+      }else if (activityId){
+        const routinesByActivity = await getRoutinesByActivity(activityId)
+        console.log(routinesByActivity)
+        populateRoutines(routinesByActivity)
+      }else {
         const freshRoutines = await getRoutines()
         populateRoutines(freshRoutines)
       }

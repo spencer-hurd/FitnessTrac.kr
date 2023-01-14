@@ -4,15 +4,16 @@
 }
 
 .routine-form-inputs {
-  display: flex;
-  justify-content: center;
+  display: flexbox;
 }
 
 .routine input[type="text"] {
   appearance: none;
   background: none;
-  color: white;
-  font-size: 18px;
+  color: black;
+  font-size: 1rem;
+  width: 30rem;
+  font-family: 'Barlow Condensed', cursive;
 }
 
 /* .routine input[type="number"] {
@@ -24,6 +25,14 @@
 
 .routine input:disabled {
   border: none;
+}
+
+input {
+    font-family: 'Barlow Condensed', cursive
+}
+
+input:disabled{
+    background: none;
 }
 
 .routine input:enabled[type="text"] {
@@ -54,8 +63,9 @@
 .activity input[type="text"] {
   appearance: none;
   background: none;
-  color: white;
-  font-size: 18px;
+  color: black;
+  font-size: 1rem;
+  font-family: 'Barlow Condensed', cursive;
   width: 80%;
 }
 

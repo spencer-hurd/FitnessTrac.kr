@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RoutinesContainer from "./RoutinesContainer";
 import './Styles/Routines.css'
 

@@ -16,12 +16,11 @@ const RoutineForm = ({closeModal}) => {
       goal: routineGoalRef.current.value,
       isPublic: isPublic
     }
-
     try {
       //not sure I love this solution. I'd prefer the DB to just return the creatorName
       let newRoutine = await postRoutine(body, token)
       if (newRoutine.error) {
-        alert('That routine name is already taken. Please choose another')
+        alert('That routine name is already taken, please choose another.')
         throw new Error(newRoutine.error)
       }
       newRoutine.creatorName = user.username

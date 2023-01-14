@@ -6,6 +6,7 @@ import './App.css'
 import MyRoutines from './Components/MyRoutines'
 import UserRoutines from './Components/UserRoutines'
 import { useEffect } from 'react'
+import RoutinesByActivity from './Components/RoutinesByActivity'
 
 
 
@@ -38,6 +39,7 @@ function App() {
               <Route path='/activities' element={<Activities />}/>
               <Route path='/my-routines' element={<MyRoutines />}/>
               <Route path='user/:username' element={<UserRoutines />}/>
+              <Route path='activities/:activityId/routines' element={<RoutinesByActivity />}/>
             </Routes>
           </div>
         </ActivitiesProvider>

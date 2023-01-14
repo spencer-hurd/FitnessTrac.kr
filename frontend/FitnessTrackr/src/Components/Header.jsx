@@ -4,6 +4,8 @@ import { useUser } from '../state/context'
 import Modal from 'react-modal'
 import AuthForm from './AuthForm'
 import './Styles/Header.css'
+import buffarm from './Styles/buffarm.png'
+import buffarm2 from './Styles/buffarm-2.png'
 
 const Header = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -32,8 +34,17 @@ const Header = () => {
   return (
     <>
       <div className='header'>
-        <NavLink to='/'>
-          <h2>fitnesstrac.kr</h2>
+        <NavLink to='/' className={'site-logo'}>
+        <div className='arm-container'>
+            <img src={buffarm} className='buff-arm'/>
+          </div>
+          <div className='site-names'>
+            <h2 className='site-name'>fitness</h2>
+           <h2 className='site-name'>trac.kr</h2>
+          </div>
+          <div className='arm-container'>
+            <img src={buffarm2} className='buff-arm'/>
+          </div>
         </NavLink>
         <div className="nav-sign-in"> 
           <nav className="navbar">
@@ -46,7 +57,7 @@ const Header = () => {
           {/* If logged in, change this button to sign out with a welcome */}
           {token 
           ? <>
-              <p>Hey {user.username}</p>
+              <p className='greeting'>Hey, {user.username}!</p>
               <NavLink to='/'>
               <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
               </NavLink>

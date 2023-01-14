@@ -3,9 +3,8 @@ import { useActivities } from "../state/context";
 import { getActivities } from "../api/fetch";
 import Activity from "./Activity"
 import Modal from 'react-modal'
-
+import NewActivityForm from './NewActivityForm'
 import './Styles/Activities.css'
-import NewActivityForm from "./NewActivityForm";
 
 const Activities = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -42,7 +41,7 @@ const Activities = () => {
         className='AuthModal'
         overlayClassName='AuthOverlay'
         portalClassName="ModalPortal"
-        contentLabel="Login Modal"
+        contentLabel="Activity Modal"
       >
         <NewActivityForm closeModal={closeModal}/>
       </Modal>

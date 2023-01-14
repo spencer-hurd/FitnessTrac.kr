@@ -102,9 +102,17 @@ export const ActivitiesProvider = ({children}) => {
     })
   }
 
+  const addNewActivity = (activity) => {
+    dispatch({
+      type: 'add_new_activity',
+      payload: activity
+    })
+  }
+
   const value = {
     activities: state.activities,
-    populateActivities
+    populateActivities,
+    addNewActivity
   }
   return <ActivitiesContext.Provider value={value}>{children}</ActivitiesContext.Provider> 
 }

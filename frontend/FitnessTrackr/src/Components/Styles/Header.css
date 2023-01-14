@@ -1,21 +1,35 @@
-.nav-link {
-  margin: 1rem;
+.header{
+  width: 40em;
 }
-
 .nav-sign-in {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 3rem;
 }
 
 .navbar {
   display: flex;
   justify-content: center;
+  margin-right: 5em;
+  position:relative;
 }
 
-.sign-in-button {
-  margin-left: auto;
+.greeting{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.greeting{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
 }
 
 .AuthModal {
@@ -25,8 +39,18 @@
   right: 5px;
   bottom: 5px;
   padding: 1rem;
-  background-color: papayawhip;
-  color: black
+  background-color: lightgray;
+  color: black;
+  font-family: 'Barlow Condensed', cursive;
+}
+
+.modal-button{
+  font-family: 'Barlow Condensed', cursive;
+}
+
+.routine-intro{
+  font-family: 'Barlow Condensed', cursive;
+
 }
 
 .AuthOverlay {
@@ -44,4 +68,76 @@
   position: absolute;
   height: 1px;
   width: 1px;
+}
+
+.site-name {
+  font-family: 'Faster One', cursive;
+  margin: 0;
+  color: rgb(0, 194, 229);
+  font-size: 35px;
+}
+
+.site-names{
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link{
+  color: black;
+  font-family: 'Barlow Condensed', cursive;
+  letter-spacing: .2px;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  padding-top: 5px;
+  margin: 1rem;
+  font-weight: bold;
+}
+.sign-out-button{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  margin-top: .25em;
+  background-color: rgba(0, 194, 229, .75);
+  color: white;
+  font-weight: bold;
+  width: 8rem;
+  padding-left: 2rem;
+}
+.sign-in-button{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  margin-top: .25em;
+  background-color: rgba(0, 194, 229, .75);
+  color: white;
+  font-weight: bold;
+}
+
+.auth-buttons{
+  font-family: 'Barlow Condensed', cursive;
+}
+
+.divider{
+  padding-top: 3px;;
+   transform: scale(1, 0.9);
+   font-size: 1.1rem;
+   padding-top: 5px;
+}
+
+.buff-arm{
+  height: 3rem;
+  filter: saturate(200%) contrast(30%) brightness(500%) 
+      invert(35%) sepia(300%) hue-rotate(150deg); 
+}
+
+
+.site-logo{
+  display: inline-flex;
+  flex-direction: row;
 }

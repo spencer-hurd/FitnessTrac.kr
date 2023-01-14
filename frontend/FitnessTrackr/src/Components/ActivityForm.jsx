@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react"
+import { NavLink } from "react-router-dom"
 import { useImmer } from "use-immer"
 import { deleteRoutineActivity, getActivities, modifyRoutineActivities, postActivityToRoutine } from "../api/fetch"
 import { useActivities, useRoutines, useUser } from "../state/context"
@@ -129,6 +130,7 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
   return (
     /* Display form and edit */
     <form onSubmit={(e) => {handleFormSubmit(e)}}>
+        <NavLink to={`/activities/${activity.id}/routines`}>
       <div>
         <label htmlFor="activity-name"></label>
         {isCreatingRA 
@@ -143,6 +145,7 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
           }</select> 
         : <input type="text" defaultValue={activityData.name} disabled={true}/>}
       </div>
+        </NavLink>
       <div>
         <label htmlFor="activity-description"></label>
         <input type="text" defaultValue={activityData.description} disabled={true}/>

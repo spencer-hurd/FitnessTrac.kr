@@ -1,5 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import ActivityForm from "./ActivityForm";
+import './Styles/Activity.css'
 
 const Activity = ({activity, isCreatingRA, setIsCreatingRA, isEditable, setIsEditable, routineActivities, routineId}) => {
   if (activity?.routineActivityId || isCreatingRA) {return (
@@ -10,7 +12,7 @@ const Activity = ({activity, isCreatingRA, setIsCreatingRA, isEditable, setIsEdi
   
   else{return (
     <div className='activity'>
-      <h4>{activity.name}</h4>
+      <NavLink to={`/activities/${activity.id}/routines`}><h4>{activity.name}</h4></NavLink>
       <p>{activity.description}</p>
     </div>
   )}
