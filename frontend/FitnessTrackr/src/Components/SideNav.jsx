@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import './Styles/SideNav.css'
-import buffarm2 from './Styles/buffarm-2.png'
+import buffarm2 from '../assets/buffarm-2.png'
 const SideNav = ({user}) => {
     return (
             <nav className="navbar">

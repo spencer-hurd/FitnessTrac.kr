@@ -4,8 +4,17 @@
   text-align: center;
 }
 
-.routine-form-inputs {
-  display: flexbox;
+.name{
+float: left}
+
+.creator{
+  float: left;
+  font-size: smaller;
+  line-height: 1rem;
+}
+
+.goal{
+  float: left
 }
 
 .routine input[type="text"] {
@@ -41,19 +50,21 @@ input:disabled{
   border-bottom: 1px solid black;
 }
 
-.edit-buttons {
-  display: flex;
-  flex-direction: column; 
-  justify-content: space-between;
+.routine-buttons {
+  float: right
 }
 
-.non-danger-buttons {
+/* .non-danger-buttons {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .edit-buttons button {
   margin-bottom: 1rem;
+}
+
+.routine-edit-button{
+  width: 5rem;
 }
 
 .routine-activities button {
@@ -80,10 +91,11 @@ input:disabled{
 }
 
 .ra-header {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 }
 
 .ra-header button {
-  padding: .2rem;
-  height: 2rem
+  height: 2rem;
+  margin-left: 1rem
 }

@@ -63,16 +63,16 @@ const Routine = ({routineData}) => {
     <>
       <form className="routine" ref={formRef} onSubmit={(e) => {handleRoutineEdit(e)}}>
         <div className="routine-form-inputs">
-          <div>
+          <div className="name">
             <label className={'routine-field'}htmlFor="routine-name">Routine: </label>
             <input type='text' ref={nameRef} defaultValue={routineData.name} disabled={!isEditable} />
           </div>
-          <div>
+          <div className="creator">
             <label className={'routine-field'}htmlFor="creator">Creator: </label>
             <NavLink to={`/user/${routineData.creatorName}`}>{routineData.creatorName}</NavLink>
           </div>
           <b/>
-          <div>
+          <div className="goal">
             <label className={'routine-field'}htmlFor="goal">Goal: </label>
             <input type='text' ref={goalRef} defaultValue={routineData.goal} disabled={!isEditable} />
           </div>
@@ -89,7 +89,7 @@ const Routine = ({routineData}) => {
         isAuthor
         ? <div className="routine-buttons">{
           !isEditable
-          ? <button onClick={ () => {setIsEditable(true)} }>Edit Routine</button>
+          ? <button className="routine-edit-button" onClick={ () => {setIsEditable(true)} }>Edit Routine</button>
           : <div className="edit-buttons">
               <div className="non-danger-buttons">
                 <button type='button' onClick={ (e) => {setIsEditable(false); formRef.current.reset()}}>Cancel</button>

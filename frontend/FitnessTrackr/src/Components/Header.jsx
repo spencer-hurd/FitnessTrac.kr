@@ -4,8 +4,8 @@ import { useUser } from '../state/context'
 import Modal from 'react-modal'
 import AuthForm from './AuthForm'
 import './Styles/Header.css'
-import buffarm from './Styles/buffarm.png'
-import buffarm2 from './Styles/buffarm-2.png'
+import buffarm from '../assets/buffarm.png'
+import buffarm2 from '../assets/buffarm-2.png'
 import SideNav from './SideNav'
 
 const Header = () => {
@@ -69,10 +69,11 @@ const Header = () => {
         </div>
       </div>
       <Modal 
+      closeTimeoutMS={300}
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      className={(modalIsOpen ? 'AuthModal open-modal' : 'AuthModal')}
+      className={"AuthModal"}
       overlayClassName='AuthOverlay'
       portalClassName="ModalPortal"
       contentLabel="Login Modal"

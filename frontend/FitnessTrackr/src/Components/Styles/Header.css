@@ -22,30 +22,32 @@
 }
 
 
-
-.AuthModal {
-  height: 100%; /* 100% Full-height */
+.AuthModal{
+  height: 100%; 
   width: 0rem;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
+  transition: width 300ms ease-in-out;
+  position: fixed; 
+  z-index: 1; 
+  top: 0; 
   right: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 10px; /* Place content 60px from the top */
+  overflow-x: hidden;
+  padding-top: 10px; 
   padding-left: 1rem;
   margin-top: 7.9rem;
   background-color: lightgray;
   color: black;
   font-family: 'Barlow Condensed', cursive;
-  visibility: hidden;
 }
 
-.open-modal{
-  transition: width 7s ease-in;
-  transition-delay: 2s;
-  visibility: visible;
+
+.ReactModal__Content--after-open{
   width: 15rem;
 }
+
+.ReactModal__Content--before-close{
+  width: 0;
+}
+
 
 .modal-button{
   font-family: 'Barlow Condensed', cursive;
@@ -79,6 +81,7 @@
   color: rgb(0, 194, 229);
   font-size: 35px;
   margin-top: -1rem;
+  letter-spacing: -1px;
   
 }
 
