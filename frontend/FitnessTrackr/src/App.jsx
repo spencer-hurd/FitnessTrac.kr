@@ -1,12 +1,11 @@
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, redirect } from 'react-router-dom'
 import { RoutineProvider, ActivitiesProvider, UserProvider} from './state/context'
-import { Header, Home, Routines, Activities } from './Components'
+import { Home, Routines, Activities } from './Components'
 
 import './App.css'
 import MyRoutines from './Components/MyRoutines'
 import UserRoutines from './Components/UserRoutines'
 import RoutinesByActivity from './Components/RoutinesByActivity'
-import SideNav from './Components/SideNav'
 import { getActivities } from './api/fetch'
 
 const routinesByActivityLoader = async ({params}) => {

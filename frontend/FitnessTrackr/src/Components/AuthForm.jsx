@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { registerUser, logInUser } from "../api/auth";
 import { useUser } from "../state/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect, NavLink } from "react-router-dom";
 
 const AuthForm = ({closeModal}) => {
   const [isLogin, setIsLogin] = useState(0)
@@ -50,7 +50,7 @@ const AuthForm = ({closeModal}) => {
               rememberMe ? localStorage.setItem('token', result.token) : null;
               rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
               closeModal()
-              navigate('/my-routines')
+              return <NavLink to='my-routines'/>
             } else {
               //make nicer
               alert('Passwords must match')
