@@ -1,47 +1,50 @@
 .header{
   width: 40em;
-}
-.nav-sign-in {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  text-align: center;
   align-items: center;
-  height: 3rem;
+  justify-content: center;
+  display: inline-flex;
+  flex-direction: row;
 }
+/* .nav-sign-in {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: left;
+  align-items: left; */
+  /* height: 3rem;
+} */ 
 
 .navbar {
   display: flex;
-  justify-content: center;
-  margin-right: 5em;
+  /* justify-content: left; */
+  /* margin-right: 5em; */
   position:relative;
 }
 
-.greeting{
-  font-family: 'Barlow Condensed', cursive;
-  transform: scale(1, 0.9);
-  font-size: 1.1rem;
-  margin-right: 2rem;
-  margin-bottom: 1rem;
-}
 
-.greeting{
-  font-family: 'Barlow Condensed', cursive;
-  transform: scale(1, 0.9);
-  font-size: 1.1rem;
-  margin-right: 2rem;
-  margin-bottom: 1rem;
-}
 
 .AuthModal {
-  position: absolute;
-  top: 5px;
-  left: 66%;
-  right: 5px;
-  bottom: 5px;
-  padding: 1rem;
+  height: 100%; /* 100% Full-height */
+  width: 0rem;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 10px; /* Place content 60px from the top */
+  padding-left: 1rem;
+  margin-top: 7.9rem;
   background-color: lightgray;
   color: black;
   font-family: 'Barlow Condensed', cursive;
+  visibility: hidden;
+}
+
+.open-modal{
+  transition: width 7s ease-in;
+  transition-delay: 2s;
+  visibility: visible;
+  width: 15rem;
 }
 
 .modal-button{
@@ -50,7 +53,7 @@
 
 .routine-intro{
   font-family: 'Barlow Condensed', cursive;
-
+  
 }
 
 .AuthOverlay {
@@ -75,9 +78,12 @@
   margin: 0;
   color: rgb(0, 194, 229);
   font-size: 35px;
+  margin-top: -1rem;
+  
 }
 
 .site-names{
+  position: sticky;
   display: flex;
   flex-direction: column;
 }
@@ -92,6 +98,16 @@
   margin: 1rem;
   font-weight: bold;
 }
+.greeting{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  /* margin-right: 2rem; */
+  top:0;
+  right:0;
+  position: absolute;
+  margin-right: 2em;
+}
 .sign-out-button{
   font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
@@ -99,12 +115,16 @@
   height: 2em;
   display: flex;
   align-items: center;
-  margin-top: .25em;
+  margin-top: 2.5em;
+  margin-right:1em;
   background-color: rgba(0, 194, 229, .75);
   color: white;
   font-weight: bold;
   width: 8rem;
   padding-left: 2rem;
+  position: absolute;
+  top:0;
+  right:0;
 }
 .sign-in-button{
   font-family: 'Barlow Condensed', cursive;
@@ -113,14 +133,25 @@
   height: 2em;
   display: flex;
   align-items: center;
-  margin-top: .25em;
+  margin-top: 2.5em;
+  margin-right:1em;
   background-color: rgba(0, 194, 229, .75);
   color: white;
   font-weight: bold;
+  width: 10rem;
+  position: absolute;
+  top:0;
+  right:0;
 }
 
 .auth-buttons{
   font-family: 'Barlow Condensed', cursive;
+  background-color: rgba(0, 194, 229, .75);
+}
+
+.header-button{
+  background-color: rgba(0, 194, 229, .75);
+
 }
 
 .divider{
@@ -132,6 +163,7 @@
 
 .buff-arm{
   height: 3rem;
+  margin-bottom: .5rem;
   filter: saturate(200%) contrast(30%) brightness(500%) 
       invert(35%) sepia(300%) hue-rotate(150deg); 
 }
@@ -139,5 +171,29 @@
 
 .site-logo{
   display: inline-flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  /* justify-content: center; */
+  align-items: center;
+  position: sticky;
+  top: 1px;
+  right: 50%;
+  left:50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 12.3rem;
 }
+
+.new-routine-button{
+  font-family: 'Barlow Condensed', cursive;
+  transform: scale(1, 0.9);
+  font-size: 1.1rem;
+  height: 2em;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 194, 229, .75);
+  color: white;
+  font-weight: bold;
+  width: 12rem;
+  padding: .2rem
+}
+

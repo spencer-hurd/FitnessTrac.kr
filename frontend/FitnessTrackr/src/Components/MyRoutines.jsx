@@ -51,8 +51,8 @@ const MyRoutines = () => {
   return (
     <div> 
       <div>
-        <p>These are your routines {username}!</p>
-        <button onClick={openModal}>Create a new routine</button>
+        <p className='routine-intro'>Your routines, {username}!</p>
+        <button className='new-routine-button' onClick={openModal}>Create a new routine</button>
       </div>
       <UserRoutines currentUsername={username}/>
       <Modal 

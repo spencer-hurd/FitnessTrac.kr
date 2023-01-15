@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRoutines, useUser } from "../state/context";
 import { getRoutines, getUserRoutines, getRoutinesByActivity } from "../api/fetch";
 import Routine from "./Routine";
+import './Styles/RoutinesContainer.css'
 
 const RoutinesContainer = ({username, activityId}) => {
   const { routines, populateRoutines } = useRoutines()

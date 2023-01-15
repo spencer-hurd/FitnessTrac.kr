@@ -6,6 +6,7 @@ import AuthForm from './AuthForm'
 import './Styles/Header.css'
 import buffarm from './Styles/buffarm.png'
 import buffarm2 from './Styles/buffarm-2.png'
+import SideNav from './SideNav'
 
 const Header = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -47,14 +48,15 @@ const Header = () => {
           </div>
         </NavLink>
         <div className="nav-sign-in"> 
-          <nav className="navbar">
+          {/* <nav className="navbar">
             {user 
             ? <NavLink to='my-routines' className={'nav-link'}>my routines</NavLink>
             : null
             } </nav>
             <NavLink to='routines' className={'nav-link'}>routines</NavLink>
-            <NavLink to='activities' className={'nav-link'}>activities</NavLink>
+            <NavLink to='activities' className={'nav-link'}>activities</NavLink> */}
           {/* If logged in, change this button to sign out with a welcome */}
+          <SideNav user={user}/>
           {token 
           ? <>
               <p className='greeting'>Hey, {user.username}!</p>
@@ -70,7 +72,7 @@ const Header = () => {
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      className='AuthModal'
+      className={(modalIsOpen ? 'AuthModal open-modal' : 'AuthModal')}
       overlayClassName='AuthOverlay'
       portalClassName="ModalPortal"
       contentLabel="Login Modal"

@@ -28,7 +28,7 @@ const NewActivityForm = ({closeModal}) => {
   }
   return (
     <div className="new-activity-form">
-      <p>I'm where the stuff goes!</p>
+      <p>Make a new activity: </p>
       <form 
       className="new-activity-form"
       onSubmit={handleSubmit}

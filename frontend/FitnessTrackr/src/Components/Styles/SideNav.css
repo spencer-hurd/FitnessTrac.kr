@@ -1,0 +1,44 @@
+.navbar{
+     height: 100%; /* 100% Full-height */
+  width: 12rem;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 10px; /* Place content 60px from the top */
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  background-color: rgba(211, 211, 211, .5);
+}
+
+.nav-link{
+    margin-bottom: 1rem;
+    padding: .5rem;
+    margin-right:0;
+    margin-left: 0;
+    background-color: lightgray
+}
+
+.mini-logo{
+    font-family: 'Faster One', cursive;
+    color: rgb(0, 194, 229);
+    font-size: 30px;
+    margin-left: 2rem;
+    letter-spacing:-10px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+}
+
+.buff-arm-mini{
+    position: relative;
+    height: 1.75rem;
+    margin-top: .5rem;
+    margin-left: .3em;
+    filter: saturate(200%) contrast(40%) brightness(500%) 
+        invert(35%) sepia(300%) hue-rotate(150deg); 
+  }

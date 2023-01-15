@@ -33,7 +33,7 @@ const AuthForm = ({closeModal}) => {
   return (
     <div>
       <p>{authPageData.headerStr[isLogin]}</p>
-      <button onClick={toggleAuthPage}>{authPageData.headerBtn[isLogin]}</button>
+      <button className="header-button" onClick={toggleAuthPage}>{authPageData.headerBtn[isLogin]}</button>
       <h2>{authPageData.authPrompt[isLogin]}</h2>
 			<form 
         className="auth-form"

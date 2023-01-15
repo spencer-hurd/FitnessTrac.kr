@@ -6,4 +6,10 @@
   font-family: 'Barlow Condensed', cursive;
   line-height: .5rem;
   transform: scale(1, 0.9);
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40rem;
+  left:50%;
+  right: 50%;
+  }

@@ -130,7 +130,7 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
   return (
     /* Display form and edit */
     <form onSubmit={(e) => {handleFormSubmit(e)}}>
-        <NavLink to={`/activities/${activity.id}/routines`}>
+        
       <div>
         <label htmlFor="activity-name"></label>
         {isCreatingRA 
@@ -143,9 +143,9 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
             )
           })
           }</select> 
-        : <input type="text" defaultValue={activityData.name} disabled={true}/>}
+        : <NavLink to={`/activities/${activity?.id}/routines`}><input type="text" defaultValue={activityData.name} disabled={true}/></NavLink>}
       </div>
-        </NavLink>
+        
       <div>
         <label htmlFor="activity-description"></label>
         <input type="text" defaultValue={activityData.description} disabled={true}/>

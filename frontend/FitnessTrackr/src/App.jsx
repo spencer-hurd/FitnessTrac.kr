@@ -7,6 +7,7 @@ import MyRoutines from './Components/MyRoutines'
 import UserRoutines from './Components/UserRoutines'
 import { useEffect } from 'react'
 import RoutinesByActivity from './Components/RoutinesByActivity'
+import SideNav from './Components/SideNav'
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <ActivitiesProvider>
           <div className="App">
             <Header />
+            {/* <SideNav /> */}
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/routines' element={<Routines />}/>

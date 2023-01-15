@@ -1,6 +1,7 @@
 .routine {
   display: flex;
   flex-direction: row;
+  text-align: center;
 }
 
 .routine-form-inputs {
