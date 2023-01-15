@@ -50,7 +50,7 @@ const AuthForm = ({closeModal}) => {
               rememberMe ? localStorage.setItem('token', result.token) : null;
               rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
               closeModal()
-              navigate('/my-routines')
+              navigate('my-routines')
             } else {
               //make nicer
               alert('Passwords must match')
