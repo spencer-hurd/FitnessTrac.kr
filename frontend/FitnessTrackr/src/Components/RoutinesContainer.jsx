@@ -7,7 +7,6 @@ import './Styles/RoutinesContainer.css'
 const RoutinesContainer = ({username, activityId}) => {
   const { routines, populateRoutines } = useRoutines()
   const { token, modFlag } = useUser()
-  console.log('ACTIVITY ID: ', activityId)
   //fetches either routines by user or all public
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -43,7 +42,7 @@ const RoutinesContainer = ({username, activityId}) => {
         )
       })
     }</div>
-    : null
+    : <p>No routines to show muchacho!</p>
   )
 }
 

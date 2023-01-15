@@ -1,18 +1,18 @@
 import { useEffect } from "react"
 import { getRoutinesByActivity } from "../api/fetch"
 import { useActivities } from "../state/context"
-import { useParams } from "react-router-dom"
+import { useLoaderData, useParams } from "react-router-dom"
 import RoutinesContainer from "./RoutinesContainer"
 const RoutinesByActivity = () => {
-    const {activityId} = useParams()
-    const {activities} = useActivities()
+    const activity = useLoaderData()
+    console.log('passed from loader: ', activity)
     return (
         <div>{
-            activityId
-            ? <p>Routines with that activity: </p>
+            activity.id
+            ? <p>Routines with {activity.name}:  </p>
             : null
         }
-        <RoutinesContainer activityId={activityId}/>
+        <RoutinesContainer activityId={activity.id}/>
         </div>
     )
 }

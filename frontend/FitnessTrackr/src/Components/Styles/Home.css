@@ -1,8 +1,19 @@
 .home-splash{
-    font-family: 'Barlow Condensed', cursive;
-    font-size: 1rem;
-    letter-spacing: .2px;
-    font-weight: 400;
-    margin: 0;
-    height: .75em;
+  font-family: 'Barlow Condensed', cursive;
+  font-size: 1rem;
+  letter-spacing: .2px;
+  font-weight: 400;
+  margin: 0;
+  display: flex;
+}
+
+.outlet-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50rem;
+}
+
+.outlet-container > button {
+  max-width: 10rem;
 }

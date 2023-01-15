@@ -33,7 +33,7 @@ const Activities = () => {
 
   //Add modal to create activity
   return (
-    <div>
+    <>
       <Modal
         closeTimeoutMS={300}
         isOpen={modalIsOpen}
@@ -59,7 +59,7 @@ const Activities = () => {
       }</div>
       : null
       }
-    </div>
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
 :root {
-  color-scheme: light;
-  /* color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+  /* color-scheme: light; */
+  color: #213547;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,7 +16,7 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: rgb(0, 194, 229);
+  color: rgb(0, 194, 229)
 }
 
 body {
@@ -44,7 +44,7 @@ button {
   transition: border-color 0.25s;
 }
 
-button:focus,
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
@@ -58,4 +58,4 @@ button:focus-visible {
     color: rgb(0, 194, 229)
   }
 
-}
+} */

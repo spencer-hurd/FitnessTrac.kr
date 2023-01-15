@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom'
 import { useUser } from '../state/context'
 import Modal from 'react-modal'
 import AuthForm from './AuthForm'
+
 import './Styles/Header.css'
 import buffarm from '../assets/buffarm.png'
 import buffarm2 from '../assets/buffarm-2.png'
-import SideNav from './SideNav'
 
 const Header = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -56,15 +56,17 @@ const Header = () => {
             <NavLink to='routines' className={'nav-link'}>routines</NavLink>
             <NavLink to='activities' className={'nav-link'}>activities</NavLink> */}
           {/* If logged in, change this button to sign out with a welcome */}
-          <SideNav user={user}/>
           {token 
           ? <>
               <p className='greeting'>Hey, {user.username}!</p>
               <NavLink to='/'>
-              <button className='sign-out-button' onClick={signOut}>Sign Out!</button>
+              <button className='sign-in-out-button' onClick={signOut}>Sign Out!</button>
               </NavLink>
             </>
-          : <button className='sign-in-button' onClick={openModal}>Sign In/Sign up!</button>
+          : <>
+            <p style={{height: '1rem'}}></p>
+              <button className='sign-in-out-button' onClick={openModal}>Sign In/Sign up!</button>
+          </>
           }
         </div>
       </div>
