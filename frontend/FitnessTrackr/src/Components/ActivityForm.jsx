@@ -143,7 +143,7 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
             )
           })
           }</select> 
-        : <NavLink to={`/activities/${activity?.id}/routines`}><input type="text" defaultValue={activityData.name} disabled={true}/></NavLink>}
+        : <NavLink to={`/activities/${activity?.id}/routines`} className="RA-link"><input type="text" defaultValue={activityData.name} disabled={true}/></NavLink>}
       </div>
         
       <div>

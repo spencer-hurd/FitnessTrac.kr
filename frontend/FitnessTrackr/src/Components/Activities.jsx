@@ -33,7 +33,7 @@ const Activities = () => {
 
   //Add modal to create activity
   return (
-    <div>
+    <>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -58,7 +58,7 @@ const Activities = () => {
       }</div>
       : null
       }
-    </div>
+    </>
   )
 }
 

@@ -1,14 +1,31 @@
-import { Routes, Route } from 'react-router-dom'
-import { RoutineProvider, ActivitiesProvider, UserProvider, useActivities } from './state/context'
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, redirect } from 'react-router-dom'
+import { RoutineProvider, ActivitiesProvider, UserProvider} from './state/context'
 import { Header, Home, Routines, Activities } from './Components'
 
 import './App.css'
 import MyRoutines from './Components/MyRoutines'
 import UserRoutines from './Components/UserRoutines'
-import { useEffect } from 'react'
 import RoutinesByActivity from './Components/RoutinesByActivity'
 import SideNav from './Components/SideNav'
+import { getActivities } from './api/fetch'
 
+const routinesByActivityLoader = async ({params}) => {
+  const activities = await getActivities()
+  const [match] = activities.filter(activity => activity.id === +params.activityId)
+  return match
+}
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Home />} >
+      <Route path='routines' element={<Routines />}/>
+      <Route path='activities' element={<Activities />}/>
+      <Route path='my-routines' element={<MyRoutines />}/>
+      <Route path='user/:username' element={<UserRoutines />}/>
+      <Route path='activities/:activityId/routines' element={<RoutinesByActivity />} loader={routinesByActivityLoader}/>
+    </Route>
+  )
+)
 
 
 function App() {
@@ -33,16 +50,7 @@ function App() {
       <UserProvider>
         <ActivitiesProvider>
           <div className="App">
-            <Header />
-            {/* <SideNav /> */}
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/routines' element={<Routines />}/>
-              <Route path='/activities' element={<Activities />}/>
-              <Route path='/my-routines' element={<MyRoutines />}/>
-              <Route path='user/:username' element={<UserRoutines />}/>
-              <Route path='activities/:activityId/routines' element={<RoutinesByActivity />}/>
-            </Routes>
+            <RouterProvider router={router}/>
           </div>
         </ActivitiesProvider>
       </UserProvider>

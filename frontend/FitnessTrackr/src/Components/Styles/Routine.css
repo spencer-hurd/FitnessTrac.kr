@@ -1,39 +1,25 @@
 .routine {
   display: flex;
   flex-direction: row;
-  text-align: center;
 }
 
 .routine-form-inputs {
-  display: flexbox;
+  display: flex;
+  justify-content: center;
 }
 
 .routine input[type="text"] {
   appearance: none;
   background: none;
-  color: black;
-  font-size: 1rem;
-  width: 30rem;
-  font-family: 'Barlow Condensed', cursive;
+  font-size: 18px;
 }
 
-/* .routine input[type="number"] {
+.routine input[type="number"] {
   appearance: none;
-  background: none;
-  color: white;
-  font-size: 18px;
-} */
+}
 
 .routine input:disabled {
   border: none;
-}
-
-input {
-    font-family: 'Barlow Condensed', cursive
-}
-
-input:disabled{
-    background: none;
 }
 
 .routine input:enabled[type="text"] {
@@ -64,9 +50,7 @@ input:disabled{
 .activity input[type="text"] {
   appearance: none;
   background: none;
-  color: black;
-  font-size: 1rem;
-  font-family: 'Barlow Condensed', cursive;
+  font-size: 18px;
   width: 80%;
 }
 

@@ -1,18 +1,25 @@
-.header{
-  width: 40em;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
-  flex-direction: row;
-}
-/* .nav-sign-in {
+.head-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: left;
-  align-items: left; */
-  /* height: 3rem;
-} */ 
+  align-items: center;
+}
+
+.header{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.nav-sign-in {
+  display: flex;
+  flex-direction: column;
+  margin: 0 2rem 0 0;
+  min-height: 95px;
+  position: absolute;
+  right: 0;
+  top: 0
+} 
 
 .navbar {
   display: flex;
@@ -21,11 +28,9 @@
   position:relative;
 }
 
-
-
 .AuthModal {
   height: 100%; /* 100% Full-height */
-  width: 0rem;
+  width: 15rem;
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -37,7 +42,6 @@
   background-color: lightgray;
   color: black;
   font-family: 'Barlow Condensed', cursive;
-  visibility: hidden;
 }
 
 .open-modal{
@@ -98,50 +102,22 @@
   margin: 1rem;
   font-weight: bold;
 }
+
 .greeting{
   font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
   /* margin-right: 2rem; */
-  top:0;
-  right:0;
-  position: absolute;
-  margin-right: 2em;
 }
-.sign-out-button{
+
+.sign-in-out-button{
   font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
-  height: 2em;
-  display: flex;
-  align-items: center;
-  margin-top: 2.5em;
-  margin-right:1em;
   background-color: rgba(0, 194, 229, .75);
   color: white;
   font-weight: bold;
-  width: 8rem;
-  padding-left: 2rem;
-  position: absolute;
-  top:0;
-  right:0;
-}
-.sign-in-button{
-  font-family: 'Barlow Condensed', cursive;
-  transform: scale(1, 0.9);
-  font-size: 1.1rem;
-  height: 2em;
-  display: flex;
-  align-items: center;
-  margin-top: 2.5em;
-  margin-right:1em;
-  background-color: rgba(0, 194, 229, .75);
-  color: white;
-  font-weight: bold;
-  width: 10rem;
-  position: absolute;
-  top:0;
-  right:0;
+  padding: 0.3rem 1rem 0.5rem 1rem;
 }
 
 .auth-buttons{
@@ -174,13 +150,8 @@
   /* flex-direction: row; */
   /* justify-content: center; */
   align-items: center;
-  position: sticky;
-  top: 1px;
-  right: 50%;
-  left:50%;
   margin-left: auto;
   margin-right: auto;
-  padding-right: 12.3rem;
 }
 
 .new-routine-button{
