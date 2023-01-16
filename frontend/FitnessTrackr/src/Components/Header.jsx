@@ -16,11 +16,7 @@ const Header = () => {
   function openModal() {
     setIsOpen(true);
   }
-
-  function afterOpenModal() {
-    
-  }
-
+  
   function closeModal() {
     setIsOpen(false);
   }
@@ -48,14 +44,6 @@ const Header = () => {
           </div>
         </NavLink>
         <div className="nav-sign-in"> 
-          {/* <nav className="navbar">
-            {user 
-            ? <NavLink to='my-routines' className={'nav-link'}>my routines</NavLink>
-            : null
-            } </nav>
-            <NavLink to='routines' className={'nav-link'}>routines</NavLink>
-            <NavLink to='activities' className={'nav-link'}>activities</NavLink> */}
-          {/* If logged in, change this button to sign out with a welcome */}
           {token 
           ? <>
               <p className='greeting'>Hey, {user.username}!</p>
@@ -73,7 +61,6 @@ const Header = () => {
       <Modal 
       closeTimeoutMS={300}
       isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       className={"AuthModal"}
       overlayClassName='AuthOverlay'

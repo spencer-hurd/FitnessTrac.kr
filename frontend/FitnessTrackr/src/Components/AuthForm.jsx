@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { registerUser, logInUser } from "../api/auth";
 import { useUser } from "../state/context";
-import { useNavigate, redirect, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = ({closeModal}) => {
   const [isLogin, setIsLogin] = useState(0)
@@ -35,7 +35,7 @@ const AuthForm = ({closeModal}) => {
       <p>{authPageData.headerStr[isLogin]}</p>
       <button className="header-button" onClick={toggleAuthPage}>{authPageData.headerBtn[isLogin]}</button>
       <h2>{authPageData.authPrompt[isLogin]}</h2>
-			<form 
+			<form
         className="auth-form"
 				onSubmit={async (e) => {
 					e.preventDefault();
@@ -46,11 +46,12 @@ const AuthForm = ({closeModal}) => {
               setToken(result.token)
               setUser(result.user)
               //set localStorage on check box
-              console.log(rememberMe)
               rememberMe ? localStorage.setItem('token', result.token) : null;
               rememberMe ? localStorage.setItem('user', JSON.stringify(result.user)) : null;
               closeModal()
-              navigate('my-routines')
+              //bugged due to new react router features. setToken and setUser are not updated in time.
+              //navigate('my-routines')
+              navigate('welcome')
             } else {
               //make nicer
               alert('Passwords must match')

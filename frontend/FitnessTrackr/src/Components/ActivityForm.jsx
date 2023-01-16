@@ -70,7 +70,6 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
   }
 
   async function handleFormSubmit(e) {
-    //conditional for adding activity or modifying one
     e.preventDefault()
 
     //add activity to routine
@@ -80,7 +79,6 @@ const ActivityForm = ({activity, isCreatingRA, setIsCreatingRA, isEditable, rout
       count: countRef.current.value,
       duration: durationRef.current.value
     }
-    console.log(addBody)
     try {
       if (!addBody.activityId){
         alert('You must select a activity to add!')

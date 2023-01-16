@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { postActivity } from "../api/fetch"
 import { useUser, useActivities } from "../state/context"
 

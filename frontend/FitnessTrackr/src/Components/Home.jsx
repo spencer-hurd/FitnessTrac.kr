@@ -7,7 +7,7 @@ import SideNav from "./SideNav";
 
 const Home = () => {
   const { user } = useUser()
-  //Floating splash???
+  
   return (
     <>
       <SideNav user={user}/>

@@ -40,5 +40,5 @@
     margin-top: .5rem;
     margin-left: .3em;
     filter: saturate(200%) contrast(40%) brightness(500%) 
-        invert(35%) sepia(300%) hue-rotate(150deg); 
-  }
+    invert(35%) sepia(300%) hue-rotate(150deg); 
+}

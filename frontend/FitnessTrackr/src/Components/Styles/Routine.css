@@ -4,7 +4,8 @@
 }
 
 .name{
-float: left}
+  float: left
+}
 
 .creator{
   float: left;
@@ -22,7 +23,7 @@ float: left}
   color: black;
   font-size: 1rem;
   width: 30rem;
-  font-family: 'Barlow Condensed', cursive;}
+}
 
 
 .routine input[type="number"] {
@@ -31,9 +32,6 @@ float: left}
 
 .routine input:disabled {
   border: none;
-}
-input {
-  font-family: 'Barlow Condensed', cursive
 }
 
 input:disabled{
@@ -72,7 +70,6 @@ input:disabled{
   background: none;
   color: black;
   font-size: 1rem;
-  font-family: 'Barlow Condensed', cursive;
   width: 80%;
 }
 

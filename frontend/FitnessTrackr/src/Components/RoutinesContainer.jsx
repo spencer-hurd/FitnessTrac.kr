@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useRoutines, useUser } from "../state/context";
 import { getRoutines, getUserRoutines, getRoutinesByActivity } from "../api/fetch";
 import Routine from "./Routine";
@@ -6,7 +6,8 @@ import './Styles/RoutinesContainer.css'
 
 const RoutinesContainer = ({username, activityId}) => {
   const { routines, populateRoutines } = useRoutines()
-  const { token, modFlag } = useUser()
+  const { token } = useUser()
+
   //fetches either routines by user or all public
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -24,12 +25,6 @@ const RoutinesContainer = ({username, activityId}) => {
     }
     fetchRoutines()
   }, [])
-
-  //renders page on state.routines change
-  //no need!!
-  /* useEffect(() => {
-    renderRoutines 
-  }, [modFlag]) */
 
   return (
     routines.length > 0

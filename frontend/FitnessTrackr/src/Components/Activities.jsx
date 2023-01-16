@@ -23,23 +23,17 @@ const Activities = () => {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
 
-  //Add modal to create activity
   return (
     <>
       <Modal
         closeTimeoutMS={300}
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        className={(modalIsOpen ? 'AuthModal Open' : 'AuthModal Close')}
+        className='AuthModal'
         overlayClassName='AuthOverlay'
         portalClassName="ModalPortal"
         contentLabel="Login Modal"

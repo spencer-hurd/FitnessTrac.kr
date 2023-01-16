@@ -39,7 +39,6 @@ export const useUser = () => {
 export const RoutineProvider = ({children}) => {
   const [state, dispatch] = useImmerReducer(routineReducer, routineInitState)
 
-  //add types for different routine list needs e.g. getAllPublicRoutines, addRoutineToState, removeRoutineFromState, updateRoutine
   const populateRoutines = (routineList) => {
     dispatch({
       type: 'populate_routines',

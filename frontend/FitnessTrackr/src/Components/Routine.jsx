@@ -18,7 +18,6 @@ const Routine = ({routineData}) => {
   const goalRef = useRef(routineData.goal)
   const [isPublic, setIsPublic] = useState(routineData.isPublic)
 
-  //set default value then save something in state
   //add delete confirmation
 
   useEffect(() => {

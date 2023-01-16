@@ -1,6 +1,3 @@
-import { getActivities } from "../api/fetch";
-
-//non user state
 export const routineInitState = {
   routines: [],
   activities: [],
@@ -40,6 +37,7 @@ export const routineReducer = (draft, action) => {
       const otherRoutine = draft.routines.find(
         (routine) => routine.id === payload.routineId
       );
+      
       otherRoutine.activities = otherRoutine.activities.filter(
         (activity) => activity.id !== payload.activityId
       );

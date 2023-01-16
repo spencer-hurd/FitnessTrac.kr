@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useImmer } from "use-immer";
+import { useState } from "react";
 import Activity from "./Activity";
 
 const RoutineActivities = ({activities, isAuthor, routineId}) => {
   const [isEditable, setIsEditable] = useState(false)
   const [isCreatingRA, setIsCreatingRA] = useState(false)
-  const [routineActivityIds, setRoutineActivityIds] = useImmer([])
-
-  /* useEffect(() => {
-    const ids = [] 
-    activities.forEach(activity => {
-      console.log(activity)
-      ids.push(activity.id)
-    })
-    setRoutineActivityIds(ids)
-    console.log(routineActivityIds)
-  }, []) */
 
   return (
     <div className="routine-activities">
@@ -37,7 +25,7 @@ const RoutineActivities = ({activities, isAuthor, routineId}) => {
           )
         })
       }
-      { //closing edit activities should also remove unadded activity
+      { 
       isCreatingRA
       ? <Activity isCreatingRA={isCreatingRA} setIsCreatingRA={setIsCreatingRA} routineActivities={activities} routineId={routineId}/>
       : null
@@ -45,7 +33,7 @@ const RoutineActivities = ({activities, isAuthor, routineId}) => {
       </ul>{
       isEditable
       ? isCreatingRA 
-        ? <button onClick={() => setIsCreatingRA(false)}>Close me</button>  
+        ? <button onClick={() => setIsCreatingRA(false)}>Cancel</button>  
         : <button onClick={() => setIsCreatingRA(true)} className="add-activity-to-routine">&#8862;</button>
       : null
       }

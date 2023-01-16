@@ -17,10 +17,6 @@ const MyRoutines = () => {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -28,7 +24,7 @@ const MyRoutines = () => {
   useEffect(() => {
     if (!user){
       navigate('/')
-      //alert('Please login to see your routines')
+      alert('Please login to see your routines')
     }
   }, [])
   
@@ -58,9 +54,8 @@ const MyRoutines = () => {
       <Modal 
       closeTimeoutMS={300}
       isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      className={(modalIsOpen ? 'AuthModal Open' : 'AuthModal Close')}
+      className='AuthModal'
       overlayClassName='AuthOverlay'
       portalClassName="ModalPortal"
       contentLabel="Login Modal"

@@ -23,8 +23,6 @@
 
 .navbar {
   display: flex;
-  /* justify-content: left; */
-  /* margin-right: 5em; */
   position:relative;
 }
 
@@ -43,7 +41,6 @@
   margin-top: 7.9rem;
   background-color: lightgray;
   color: black;
-  font-family: 'Barlow Condensed', cursive;
 }
 
 
@@ -53,16 +50,6 @@
 
 .ReactModal__Content--before-close{
   width: 0;
-}
-
-
-.modal-button{
-  font-family: 'Barlow Condensed', cursive;
-}
-
-.routine-intro{
-  font-family: 'Barlow Condensed', cursive;
-  
 }
 
 .AuthOverlay {
@@ -100,7 +87,6 @@
 
 .nav-link{
   color: black;
-  font-family: 'Barlow Condensed', cursive;
   letter-spacing: .2px;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
@@ -110,14 +96,11 @@
 }
 
 .greeting{
-  font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
-  /* margin-right: 2rem; */
 }
 
 .sign-in-out-button{
-  font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
   background-color: rgba(0, 194, 229, .75);
@@ -127,13 +110,11 @@
 }
 
 .auth-buttons{
-  font-family: 'Barlow Condensed', cursive;
   background-color: rgba(0, 194, 229, .75);
 }
 
 .header-button{
   background-color: rgba(0, 194, 229, .75);
-
 }
 
 .divider{
@@ -153,15 +134,12 @@
 
 .site-logo{
   display: inline-flex;
-  /* flex-direction: row; */
-  /* justify-content: center; */
   align-items: center;
   margin-left: auto;
   margin-right: auto;
 }
 
 .new-routine-button{
-  font-family: 'Barlow Condensed', cursive;
   transform: scale(1, 0.9);
   font-size: 1.1rem;
   height: 2em;
