@@ -56,10 +56,11 @@ const MyRoutines = () => {
       </div>
       <UserRoutines currentUsername={username}/>
       <Modal 
+      closeTimeoutMS={300}
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      className='AuthModal'
+      className={(modalIsOpen ? 'AuthModal Open' : 'AuthModal Close')}
       overlayClassName='AuthOverlay'
       portalClassName="ModalPortal"
       contentLabel="Login Modal"

@@ -3,16 +3,27 @@
   flex-direction: row;
 }
 
-.routine-form-inputs {
-  display: flex;
-  justify-content: center;
+.name{
+float: left}
+
+.creator{
+  float: left;
+  font-size: smaller;
+  line-height: 1rem;
+}
+
+.goal{
+  float: left
 }
 
 .routine input[type="text"] {
   appearance: none;
   background: none;
-  font-size: 18px;
-}
+  color: black;
+  font-size: 1rem;
+  width: 30rem;
+  font-family: 'Barlow Condensed', cursive;}
+
 
 .routine input[type="number"] {
   appearance: none;
@@ -21,25 +32,34 @@
 .routine input:disabled {
   border: none;
 }
+input {
+  font-family: 'Barlow Condensed', cursive
+}
+
+input:disabled{
+  background: none;
+}
 
 .routine input:enabled[type="text"] {
   border: none;
   border-bottom: 1px solid black;
 }
 
-.edit-buttons {
-  display: flex;
-  flex-direction: column; 
-  justify-content: space-between;
+.routine-buttons {
+  float: right
 }
 
-.non-danger-buttons {
+/* .non-danger-buttons {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .edit-buttons button {
   margin-bottom: 1rem;
+}
+
+.routine-edit-button{
+  width: 5rem;
 }
 
 .routine-activities button {
@@ -50,7 +70,9 @@
 .activity input[type="text"] {
   appearance: none;
   background: none;
-  font-size: 18px;
+  color: black;
+  font-size: 1rem;
+  font-family: 'Barlow Condensed', cursive;
   width: 80%;
 }
 
@@ -64,10 +86,11 @@
 }
 
 .ra-header {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 }
 
 .ra-header button {
-  padding: .2rem;
-  height: 2rem
+  height: 2rem;
+  margin-left: 1rem
 }

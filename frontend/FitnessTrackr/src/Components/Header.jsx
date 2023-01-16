@@ -71,10 +71,11 @@ const Header = () => {
         </div>
       </div>
       <Modal 
+      closeTimeoutMS={300}
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      className={(modalIsOpen ? 'AuthModal open-modal' : 'AuthModal')}
+      className={"AuthModal"}
       overlayClassName='AuthOverlay'
       portalClassName="ModalPortal"
       contentLabel="Login Modal"
